@@ -1,0 +1,79 @@
+/* src/components/Navigation/Navigation.css */
+nav {
+    padding: 1rem;
+}
+
+.categories-panel {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    /* Allows scrolling if categories overflow */
+}
+
+.categories-panel li {
+    position: relative;
+    margin-bottom: 1rem;
+    width: 25%;
+    /* Adjust width based on how many categories you want to show in a row */
+}
+
+.subcategories {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    /* Allows subcategories to wrap if there are more than fit in one line */
+}
+
+.subcategories li {
+    padding: 0.5rem;
+    position: relative;
+    /* Needed for positioning dropdown */
+}
+
+.subcategories li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.subcategories li a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for further categories dropdown */
+.further-categories {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    position: absolute;
+    display: none;
+    /* Initially hidden */
+    top: 100%;
+    /* Position below the subcategory item */
+    left: 0;
+    /* Align with the left edge of the subcategory item */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
+}
+
+.further-categories li {
+    padding: 0.5rem;
+}
+
+.further-categories li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.further-categories li a:hover {
+    text-decoration: underline;
+}
