@@ -1,74 +1,88 @@
-.App {
+/* global.css */
+:root {
+  --primary: #008080;
+  --secondary: #ff6f61;
+  --neutral-bg: #f7f7f7;
+}
+
+/* Reset some basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1366px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Set default font for the whole application */
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Anchor tags */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+/* Global container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Button styles */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Header styles */
+header {
+  background: #333;
+  color: white;
+  padding: 10px 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-/* header style */
-.header{
-  background-color: orange;
-  height: 100px;
-}
-.cart-div{
-  float: right;
-  margin: 30px;
-  position: relative;
-}
-.cart-div img{
-  width: 30px;
-}
-.cart-div span{
-  background-color: green;
-  border-radius: 100%;
-  height: 20px;
-  width: 20px;
-  position:absolute;
-  top:-10px;
-  right:0px;
-  color: #fff;
+header h1 {
+  margin: 0;
+  font-size: 2em;
 }
 
-/* end header style */
-
-/* product UI style */
-.product-container{
-    display: flex;
-    flex-wrap: wrap;
-}
-.product-item{
-  border: 1px solid #ccc;
-  padding: 20px;
-    margin: 20px;
-}
-/* end product Ui style */
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Footer styles */
+footer {
+  background: #333;
   color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer p {
+  margin: 0;
 }
