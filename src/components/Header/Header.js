@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "./Header.css";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/faShoppingCart";
+import "./Header.scss";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 

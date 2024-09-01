@@ -1,0 +1,100 @@
+@import '../../variables';
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 79px);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 10px auto;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: $primary-color;
+    text-align: center;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: $primary-color;
+    color: $white-color;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+    width: 100%;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  }
+
+  .error-message {
+    color: $red-color;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    padding: 15px;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 1rem;
+    }
+  }
+}

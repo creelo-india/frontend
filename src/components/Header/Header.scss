@@ -1,0 +1,116 @@
+@import '../../variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: $white-color;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+a.brand-logo {
+  font-size: 24px;
+  color: $primary-color;
+  font-weight: 700;
+  transition: 0.3s;
+
+  &:hover {
+    color: $primary-color;
+    transform: translateY(-2px);
+  }
+}
+
+.search-bar {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 20px;
+
+  input {
+    width: 100%;
+    padding: 8px;
+    padding-left: 25px;
+    border: 1px solid $primary-color;
+    border-radius: 0.5rem;
+    z-index: 1;
+  }
+
+  button {
+    padding: 0;
+    background-color: transparent;
+    color: $primary-color;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 7px;
+    top: 28%;
+    font-size: 1rem;
+    z-index: 2;
+  }
+
+  .suggestion-box {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    background-color: $white-color;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+
+    li {
+      padding: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}
+
+.login-button button {
+  padding: 8px 16px;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.cart-div {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 30px;
+
+  span {
+    margin-right: 5px;
+    font-size: 11px;
+    position: absolute;
+    top: -2px;
+    left: 16px;
+    background: $primary-color;
+    color: $white-color;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fa-shopping-cart {
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
