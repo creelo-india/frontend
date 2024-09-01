@@ -5,11 +5,13 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/faShoppingCart";
 import { IoCartOutline } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const cartItems = useSelector((state) => state.cartData || []);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  let Navigate = useNavigate();
 
   const primeCategories = [
     "Electronics",
@@ -59,7 +61,9 @@ const Header = () => {
   return (
     <div className="header">
       {/* Brand Logo */}
-      <div className="brand-logo">Creelo.in</div>
+      <Link to="/" className="brand-logo">
+        Creelo.in
+      </Link>
 
       {/* Product Search */}
       <div className="search-bar">
@@ -90,7 +94,9 @@ const Header = () => {
 
       {/* Login Button */}
       <div className="login-button">
-        <button type="button">Login</button>
+        <button onClick={() => Navigate("/login")} type="button">
+          Login
+        </button>
       </div>
 
       {/* Cart */}
