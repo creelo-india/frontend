@@ -1,0 +1,424 @@
+[
+    {
+        "name": "Bathroom",
+        "link": "/bathroom",
+        "subcategories": [
+            {
+                "name": "Suites",
+                "link": "/bathroom/suites",
+                "subcategories": [
+                    {
+                        "name": "Complete Suites",
+                        "link": "/bathroom/suites/complete"
+                    },
+                    {
+                        "name": "Modular Suites",
+                        "link": "/bathroom/suites/modular"
+                    }
+                ]
+            },
+            {
+                "name": "Toilets",
+                "link": "/bathroom/toilets",
+                "subcategories": [
+                    {
+                        "name": "One-Piece",
+                        "link": "/bathroom/toilets/one-piece"
+                    },
+                    {
+                        "name": "Two-Piece",
+                        "link": "/bathroom/toilets/two-piece"
+                    },
+                    {
+                        "name": "Wall-Hung",
+                        "link": "/bathroom/toilets/wall-hung"
+                    }
+                ]
+            },
+            {
+                "name": "Basins",
+                "link": "/bathroom/basins",
+                "subcategories": [
+                    {
+                        "name": "Pedestal",
+                        "link": "/bathroom/basins/pedestal"
+                    },
+                    {
+                        "name": "Wall-Mounted",
+                        "link": "/bathroom/basins/wall-mounted"
+                    },
+                    {
+                        "name": "Countertop",
+                        "link": "/bathroom/basins/countertop"
+                    }
+                ]
+            },
+            {
+                "name": "Baths",
+                "link": "/bathroom/baths",
+                "subcategories": [
+                    {
+                        "name": "Freestanding",
+                        "link": "/bathroom/baths/freestanding"
+                    },
+                    {
+                        "name": "Built-in",
+                        "link": "/bathroom/baths/built-in"
+                    },
+                    {
+                        "name": "Corner Baths",
+                        "link": "/bathroom/baths/corner"
+                    }
+                ]
+            },
+            {
+                "name": "Furniture",
+                "link": "/bathroom/furniture",
+                "subcategories": [
+                    {
+                        "name": "Vanity Units",
+                        "link": "/bathroom/furniture/vanity-units"
+                    },
+                    {
+                        "name": "Storage Cabinets",
+                        "link": "/bathroom/furniture/storage-cabinets"
+                    }
+                ]
+            },
+            {
+                "name": "Showers",
+                "link": "/bathroom/showers",
+                "subcategories": [
+                    {
+                        "name": "Shower Heads",
+                        "link": "/bathroom/showers/shower-heads"
+                    },
+                    {
+                        "name": "Shower Panels",
+                        "link": "/bathroom/showers/shower-panels"
+                    }
+                ]
+            },
+            {
+                "name": "Shower Enclosures",
+                "link": "/bathroom/shower-enclosures",
+                "subcategories": [
+                    {
+                        "name": "Sliding Doors",
+                        "link": "/bathroom/shower-enclosures/sliding-doors"
+                    },
+                    {
+                        "name": "Bi-Fold Doors",
+                        "link": "/bathroom/shower-enclosures/bi-fold-doors"
+                    }
+                ]
+            },
+            {
+                "name": "Taps",
+                "link": "/bathroom/taps",
+                "subcategories": [
+                    {
+                        "name": "Mixer Taps",
+                        "link": "/bathroom/taps/mixer"
+                    },
+                    {
+                        "name": "Monobloc Taps",
+                        "link": "/bathroom/taps/monobloc"
+                    }
+                ]
+            },
+            {
+                "name": "Mirrors",
+                "link": "/bathroom/mirrors",
+                "subcategories": [
+                    {
+                        "name": "Wall Mirrors",
+                        "link": "/bathroom/mirrors/wall"
+                    },
+                    {
+                        "name": "Vanity Mirrors",
+                        "link": "/bathroom/mirrors/vanity"
+                    }
+                ]
+            },
+            {
+                "name": "Accessories",
+                "link": "/bathroom/accessories",
+                "subcategories": [
+                    {
+                        "name": "Towel Rails",
+                        "link": "/bathroom/accessories/towel-rails"
+                    },
+                    {
+                        "name": "Soap Dispensers",
+                        "link": "/bathroom/accessories/soap-dispensers"
+                    }
+                ]
+            },
+            {
+                "name": "Brands",
+                "link": "/bathroom/brands",
+                "subcategories": [
+                    {
+                        "name": "Brand A",
+                        "link": "/bathroom/brands/brand-a"
+                    },
+                    {
+                        "name": "Brand B",
+                        "link": "/bathroom/brands/brand-b"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Plumbing",
+        "link": "/plumbing",
+        "subcategories": [
+            {
+                "name": "Pipes",
+                "link": "/plumbing/pipes",
+                "subcategories": [
+                    {
+                        "name": "Copper",
+                        "link": "/plumbing/pipes/copper"
+                    },
+                    {
+                        "name": "PVC",
+                        "link": "/plumbing/pipes/pvc"
+                    }
+                ]
+            },
+            {
+                "name": "Valves",
+                "link": "/plumbing/valves",
+                "subcategories": [
+                    {
+                        "name": "Gate Valves",
+                        "link": "/plumbing/valves/gate"
+                    },
+                    {
+                        "name": "Ball Valves",
+                        "link": "/plumbing/valves/ball"
+                    }
+                ]
+            },
+            {
+                "name": "Fittings",
+                "link": "/plumbing/fittings",
+                "subcategories": [
+                    {
+                        "name": "Elbows",
+                        "link": "/plumbing/fittings/elbows"
+                    },
+                    {
+                        "name": "Tees",
+                        "link": "/plumbing/fittings/tees"
+                    }
+                ]
+            },
+            {
+                "name": "Pumps",
+                "link": "/plumbing/pumps",
+                "subcategories": [
+                    {
+                        "name": "Sump Pumps",
+                        "link": "/plumbing/pumps/sump"
+                    },
+                    {
+                        "name": "Water Pumps",
+                        "link": "/plumbing/pumps/water"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Heating",
+        "link": "/heating",
+        "subcategories": [
+            {
+                "name": "Radiators",
+                "link": "/heating/radiators",
+                "subcategories": [
+                    {
+                        "name": "Panel Radiators",
+                        "link": "/heating/radiators/panel"
+                    },
+                    {
+                        "name": "Column Radiators",
+                        "link": "/heating/radiators/column"
+                    },
+                    {
+                        "name": "Designer Radiators",
+                        "link": "/heating/radiators/designer"
+                    }
+                ]
+            },
+            {
+                "name": "Towel Radiators",
+                "link": "/heating/towel-radiators",
+                "subcategories": [
+                    {
+                        "name": "Straight Towel Rails",
+                        "link": "/heating/towel-radiators/straight"
+                    },
+                    {
+                        "name": "Curved Towel Rails",
+                        "link": "/heating/towel-radiators/curved"
+                    }
+                ]
+            },
+            {
+                "name": "Valves & Accessories",
+                "link": "/heating/valves-accessories",
+                "subcategories": [
+                    {
+                        "name": "Thermostatic Radiator Valves",
+                        "link": "/heating/valves-accessories/thermostatic"
+                    },
+                    {
+                        "name": "Manual Valves",
+                        "link": "/heating/valves-accessories/manual"
+                    },
+                    {
+                        "name": "Bleed Valves",
+                        "link": "/heating/valves-accessories/bleed"
+                    }
+                ]
+            },
+            {
+                "name": "Underfloor Heating",
+                "link": "/heating/underfloor-heating",
+                "subcategories": [
+                    {
+                        "name": "Electric Underfloor Heating",
+                        "link": "/heating/underfloor-heating/electric"
+                    },
+                    {
+                        "name": "Water-Based Underfloor Heating",
+                        "link": "/heating/underfloor-heating/water-based"
+                    }
+                ]
+            },
+            {
+                "name": "Electric Heating",
+                "link": "/heating/electric-heating",
+                "subcategories": [
+                    {
+                        "name": "Electric Radiators",
+                        "link": "/heating/electric-heating/radiators"
+                    },
+                    {
+                        "name": "Electric Fires",
+                        "link": "/heating/electric-heating/fires"
+                    }
+                ]
+            },
+            {
+                "name": "Smart Heating",
+                "link": "/heating/smart-heating",
+                "subcategories": [
+                    {
+                        "name": "Smart Thermostats",
+                        "link": "/heating/smart-heating/thermostats"
+                    },
+                    {
+                        "name": "Smart Radiators",
+                        "link": "/heating/smart-heating/radiators"
+                    }
+                ]
+            },
+            {
+                "name": "Brands",
+                "link": "/heating/brands",
+                "subcategories": [
+                    {
+                        "name": "Brand A",
+                        "link": "/heating/brands/brand-a"
+                    },
+                    {
+                        "name": "Brand B",
+                        "link": "/heating/brands/brand-b"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Kitchen",
+        "link": "/kitchen",
+        "subcategories": [
+            {
+                "name": "Kitchen Taps",
+                "link": "/kitchen/kitchen-taps",
+                "subcategories": [
+                    {
+                        "name": "Single-Handle Taps",
+                        "link": "/kitchen/kitchen-taps/single-handle"
+                    },
+                    {
+                        "name": "Double-Handle Taps",
+                        "link": "/kitchen/kitchen-taps/double-handle"
+                    }
+                ]
+            },
+            {
+                "name": "Kitchen Sinks",
+                "link": "/kitchen/kitchen-sinks",
+                "subcategories": [
+                    {
+                        "name": "Undermount Sinks",
+                        "link": "/kitchen/kitchen-sinks/undermount"
+                    },
+                    {
+                        "name": "Top-Mount Sinks",
+                        "link": "/kitchen/kitchen-sinks/top-mount"
+                    }
+                ]
+            },
+            {
+                "name": "Boiling Water Taps",
+                "link": "/kitchen/boiling-water-taps",
+                "subcategories": [
+                    {
+                        "name": "Instant Boiling Water Taps",
+                        "link": "/kitchen/boiling-water-taps/instant"
+                    },
+                    {
+                        "name": "Filtered Boiling Water Taps",
+                        "link": "/kitchen/boiling-water-taps/filtered"
+                    }
+                ]
+            },
+            {
+                "name": "Lighting",
+                "link": "/kitchen/lighting",
+                "subcategories": [
+                    {
+                        "name": "Ceiling Lights",
+                        "link": "/kitchen/lighting/ceiling"
+                    },
+                    {
+                        "name": "Under-Cabinet Lighting",
+                        "link": "/kitchen/lighting/under-cabinet"
+                    }
+                ]
+            },
+            {
+                "name": "Brands",
+                "link": "/kitchen/brands",
+                "subcategories": [
+                    {
+                        "name": "Brand A",
+                        "link": "/kitchen/brands/brand-a"
+                    },
+                    {
+                        "name": "Brand B",
+                        "link": "/kitchen/brands/brand-b"
+                    }
+                ]
+            }
+        ]
+    }
+]

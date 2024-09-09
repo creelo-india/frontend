@@ -1,0 +1,24 @@
+// BannerCarousel.scss
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6); // Semi-transparent background for readability
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .carousel-caption h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .carousel-caption p {
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  
