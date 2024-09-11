@@ -5,19 +5,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: $white-color;
+  background-color: $primary-color;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 a.brand-logo {
   font-size: 24px;
-  color: $primary-color;
+  color: $white-color;
   font-weight: 700;
   transition: 0.3s;
+  font-family: $font-oswald;
 
   &:hover {
-    color: $primary-color;
+    color: $white-color;
     transform: translateY(-2px);
   }
 }
@@ -79,12 +80,18 @@ a.brand-logo {
 
 .login-button button {
   padding: 8px 16px;
-  border: 1px solid $primary-color;
-  color: $primary-color;
+  border: 1px solid $white-color;
+  color: $white-color;
   background: transparent;
   border-radius: 4px;
   cursor: pointer;
   margin-right: 15px;
+  font-weight: 600;
+
+  &:hover{
+    background: $white-color;
+    color: $primary-color;
+  }
 }
 
 .cart-div {
@@ -92,6 +99,8 @@ a.brand-logo {
   align-items: center;
   position: relative;
   font-size: 30px;
+  color: $white-color;
+  cursor: pointer;
 
   span {
     margin-right: 5px;
@@ -99,8 +108,9 @@ a.brand-logo {
     position: absolute;
     top: -2px;
     left: 16px;
-    background: $primary-color;
-    color: $white-color;
+    background: $white-color;
+    border: 1px solid;
+    color: $primary-color;
     border-radius: 50%;
     width: 15px;
     height: 15px;
