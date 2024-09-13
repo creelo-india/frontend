@@ -1,26 +1,26 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import Main from "./components/Main";
 import Login from "./components/Login/Login";
 import CategoriesNavigation from "./components/CategoriesNavigation/CategoriesNavigation";
-import BannerCarousel from "./components/BannerCarousel/BannerCarousel";
+import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
-        <Main/>
         <CategoriesNavigation />
-        <BannerCarousel />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-           {/* <Route path="/" element={<Main />} /> */}
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/product-search" element={<ProductListingPage />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
