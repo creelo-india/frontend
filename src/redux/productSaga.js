@@ -7,7 +7,6 @@ function* getProducts() {
     console.warn("action is called", data)
     yield put({type: SET_PRODUCT_LIST, data})
 }
-
 function* productSaga() {
     yield takeEvery(PRODUCT_LIST, getProducts)
 }
