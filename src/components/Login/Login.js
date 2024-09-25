@@ -3,10 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"; // For validation
 import axiosClient from "../../api/interceptorApi"; // Corrected import path
 import "./Login.scss";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   // Initial values for Formik
   const initialValues = {
@@ -47,15 +49,28 @@ const handleSubmit = async (values, { setSubmitting }) => {
         email: values.email,
         password: values.password,
       });
-      console.log("Logged in successfully", response.data);
+      const getTokenData=response.data.access_token
+      localStorage.setItem('token', getTokenData);
+      const token = localStorage.getItem('token');
+      window.dispatchEvent(new Event('storage'));
+      navigate("/");
+  if (token) {
+    navigate("/");
+
+    console.log("Token successfully stored:", token);
+  } else {
+    console.log("Failed to store the token");
+  }
+
       // Perform further actions such as saving token, redirecting, etc.
     } catch (error) {
       setErrorMessage("Login failed. Please check your password and try again.");
-      console.error("Login failed", error);
     }
   }
-
+ 
   setSubmitting(false);
+
+
 };
 
   return (

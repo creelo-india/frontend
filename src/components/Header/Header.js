@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -6,11 +6,14 @@ import "./Header.scss";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Header = () => {
   const cartItems = useSelector((state) => state.cartData || []);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  let Navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const navigate = useNavigate(); 
+ 
 
   const primeCategories = [
     "Electronics",
@@ -56,6 +59,26 @@ const Header = () => {
       handleSearch();
     }
   };
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
 
   return (
     <div className="header">
@@ -92,11 +115,18 @@ const Header = () => {
       </div>
 
       {/* Login Button */}
-      <div className="login-button">
-        <button onClick={() => Navigate("/login")} type="button">
-          Login
-        </button>
+      <div className="auth-button">
+        {isLoggedIn ? (
+          <button onClick={handleLogout} type="button">
+            Logout
+          </button>
+        ) : (
+          <button onClick={() => navigate("/login")} type="button">
+            Login
+          </button>
+        )}
       </div>
+
 
       {/* Cart */}
       <div className="cart-div">
