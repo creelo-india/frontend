@@ -1,87 +1,177 @@
-import React, { useState } from "react";
-import "./CategoriesNavigation.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronDown,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import categoriesData from "./data/categories.json";
+import React, { useState, useRef } from "react";
+import { FaAngleDown } from "react-icons/fa"; // Import an icon for dropdown indicator
+import "./CategoriesNavigation.scss"; // Import your styles
+
+const categories = [
+  {
+    name: "Bathroom",
+    subcategories: [
+      {
+        name: "Faucets",
+        furtherSubcategories: [
+          "Sink Faucets",
+          "Bathtub Faucets",
+          "Shower Faucets",
+          "Wall-Mounted Faucets",
+        ],
+      },
+      {
+        name: "Vanities",
+        furtherSubcategories: [
+          "Single Vanities",
+          "Double Vanities",
+          "Vanity Mirrors",
+          "Vanity Sets",
+        ],
+      },
+      {
+        name: "Showers",
+        furtherSubcategories: ["Showerheads", "Shower Doors", "Shower Panels"],
+      },
+    ],
+  },
+  {
+    name: "Plumbing",
+    subcategories: [
+      {
+        name: "Pipes",
+        furtherSubcategories: [
+          "PVC Pipes",
+          "Copper Pipes",
+          "Galvanized Pipes",
+          "PEX Pipes",
+        ],
+      },
+      {
+        name: "Fittings",
+        furtherSubcategories: ["Elbows", "Tees", "Couplings", "Adapters"],
+      },
+      {
+        name: "Valves",
+        furtherSubcategories: ["Ball Valves", "Gate Valves", "Check Valves"],
+      },
+    ],
+  },
+  {
+    name: "Heating",
+    subcategories: [
+      {
+        name: "Water Heaters",
+        furtherSubcategories: [
+          "Tankless Water Heaters",
+          "Traditional Water Heaters",
+          "Heat Pump Water Heaters",
+        ],
+      },
+      {
+        name: "Radiators",
+        furtherSubcategories: [
+          "Baseboard Radiators",
+          "Wall-Mounted Radiators",
+          "Electric Radiators",
+        ],
+      },
+      {
+        name: "Thermostats",
+        furtherSubcategories: [
+          "Smart Thermostats",
+          "Programmable Thermostats",
+          "Wi-Fi Thermostats",
+        ],
+      },
+    ],
+  },
+  {
+    name: "Kitchen",
+    subcategories: [
+      {
+        name: "Sinks",
+        furtherSubcategories: [
+          "Undermount Sinks",
+          "Drop-In Sinks",
+          "Double Bowl Sinks",
+        ],
+      },
+      {
+        name: "Faucets",
+        furtherSubcategories: [
+          "Pull-Down Faucets",
+          "Pull-Out Faucets",
+          "Touchless Faucets",
+        ],
+      },
+      {
+        name: "Cabinets",
+        furtherSubcategories: [
+          "Base Cabinets",
+          "Wall Cabinets",
+          "Corner Cabinets",
+        ],
+      },
+    ],
+  },
+];
 
 const CategoriesNavigation = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubcategory, setActiveSubcategory] = useState(null);
 
-  const handleMouseEnterCategory = (index) => {
-    setActiveCategory(index);
-    setActiveSubcategory(null); // Reset subcategory on category change
+  const handleCategoryHover = (category) => {
+    setActiveCategory(category);
+    setActiveSubcategory(category.subcategories[0]); // Default to first subcategory
   };
 
-  const handleMouseEnterSubcategory = (index) => {
-    setActiveSubcategory(index);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveCategory(null);
-    setActiveSubcategory(null);
+  const handleSubcategoryHover = (subcategory) => {
+    setActiveSubcategory(subcategory);
   };
 
   return (
-    <section className="cat-nav-container" onMouseLeave={handleMouseLeave}>
-      <ul className="category-list">
-        {categoriesData.map((category, categoryIndex) => (
+    <div className="categories-navbar">
+      <ul className="categories">
+        {categories.map((category, index) => (
           <li
-            key={category.name} // Use unique key if possible
-            onMouseEnter={() => handleMouseEnterCategory(categoryIndex)}
+            key={index}
+            onMouseEnter={() => handleCategoryHover(category)}
+            onMouseLeave={() => {
+              setActiveCategory(null);
+              setActiveSubcategory(null);
+            }}
+            className={`category ${
+              activeCategory === category ? "active" : ""
+            }`}
           >
-            <p aria-expanded={activeCategory === categoryIndex}>
-              {category.name} <FontAwesomeIcon icon={faChevronDown} />
-            </p>
+            {category.name}
+            <FaAngleDown className="dropdown-icon" />
+            {activeCategory === category && (
+              <div className="dropdown-container">
+                <ul className="subcategories">
+                  {category.subcategories.map((subcategory, idx) => (
+                    <li
+                      key={idx}
+                      onMouseEnter={() => handleSubcategoryHover(subcategory)}
+                      className={`subcategory ${
+                        activeSubcategory === subcategory ? "active" : ""
+                      }`}
+                    >
+                      {subcategory.name}
+                      {activeSubcategory === subcategory && (
+                        <ul className="further-subcategories">
+                          {subcategory.furtherSubcategories.map(
+                            (furtherSub, subIndex) => (
+                              <li key={subIndex}>{furtherSub}</li>
+                            )
+                          )}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </li>
         ))}
       </ul>
-      <div className="dropdown-header">
-        {/* Dropdown content rendered outside the ul */}
-        {activeCategory !== null && (
-          <div className="dropdown-content">
-            {categoriesData[activeCategory].subcategories.map(
-              (subcat, subIndex) => (
-                <div
-                  key={subcat.name} // Use unique key if possible
-                  className="subcategory-item"
-                  onMouseEnter={() => handleMouseEnterSubcategory(subIndex)}
-                >
-                  <a
-                    className={`${
-                      activeSubcategory === subIndex ? "active" : ""
-                    }`}
-                    href={subcat.link || "#"}
-                    aria-expanded={activeSubcategory === subIndex}
-                  >
-                    {subcat.name} <FontAwesomeIcon icon={faChevronRight} />
-                  </a>
-                </div>
-              )
-            )}
-          </div>
-        )}
-
-        {/* Nested dropdown content rendered as a sibling */}
-        {activeSubcategory !== null &&
-          activeCategory !== null &&
-          categoriesData[activeCategory].subcategories[activeSubcategory]
-            .subcategories && (
-            <div className="nested-dropdown-content">
-              {categoriesData[activeCategory].subcategories[
-                activeSubcategory
-              ].subcategories.map((nestedSubcat, nestedIndex) => (
-                <a href={nestedSubcat.link} key={nestedSubcat.name}>
-                  {nestedSubcat.name}
-                </a>
-              ))}
-            </div>
-          )}
-      </div>
-    </section>
+    </div>
   );
 };
 
