@@ -9,11 +9,11 @@ import categoriesData from "./data/categories.json";
 
 const CategoriesNavigation = () => {
   const [activeCategory, setActiveCategory] = useState(null);
-  const [activeSubcategory, setActiveSubcategory] = useState(null);
+  const [activeSubcategory, setActiveSubcategory] = useState(0);
 
   const handleMouseEnterCategory = (index) => {
     setActiveCategory(index);
-    setActiveSubcategory(null); // Reset subcategory on category change
+    setActiveSubcategory(0); // Reset subcategory on category change
   };
 
   const handleMouseEnterSubcategory = (index) => {
@@ -22,7 +22,7 @@ const CategoriesNavigation = () => {
 
   const handleMouseLeave = () => {
     setActiveCategory(null);
-    setActiveSubcategory(null);
+    setActiveSubcategory(0);
   };
 
   return (
@@ -39,36 +39,30 @@ const CategoriesNavigation = () => {
           </li>
         ))}
       </ul>
-      <div className="dropdown-header">
-        {/* Dropdown content rendered outside the ul */}
-        {activeCategory !== null && (
-          <div className="dropdown-content">
-            {categoriesData[activeCategory].subcategories.map(
-              (subcat, subIndex) => (
-                <div
-                  key={subcat.name} // Use unique key if possible
-                  className="subcategory-item"
-                  onMouseEnter={() => handleMouseEnterSubcategory(subIndex)}
+      {activeCategory !== null && (
+        <div className="dropdown-content">
+          {categoriesData[activeCategory].subcategories.map(
+            (subcat, subIndex) => (
+              <div
+                key={subcat.name} // Use unique key if possible
+                className="subcategory-item"
+                onMouseEnter={() => handleMouseEnterSubcategory(subIndex)}
+              >
+                <a
+                  className={`${
+                    activeSubcategory === subIndex ? "active" : ""
+                  }`}
+                  href={subcat.link || "#"}
+                  aria-expanded={activeSubcategory === subIndex}
                 >
-                  <a
-                    className={`${
-                      activeSubcategory === subIndex ? "active" : ""
-                    }`}
-                    href={subcat.link || "#"}
-                    aria-expanded={activeSubcategory === subIndex}
-                  >
-                    {subcat.name} <FontAwesomeIcon icon={faChevronRight} />
-                  </a>
-                </div>
-              )
-            )}
-          </div>
-        )}
+                  {subcat.name} <FontAwesomeIcon icon={faChevronRight} />
+                </a>
+              </div>
+            )
+          )}
 
-        {/* Nested dropdown content rendered as a sibling */}
-        {activeSubcategory !== null &&
-          activeCategory !== null &&
-          categoriesData[activeCategory].subcategories[activeSubcategory]
+          {/* Nested dropdown content rendered as a sibling */}
+          {categoriesData[activeCategory].subcategories[activeSubcategory]
             .subcategories && (
             <div className="nested-dropdown-content">
               {categoriesData[activeCategory].subcategories[
@@ -80,7 +74,8 @@ const CategoriesNavigation = () => {
               ))}
             </div>
           )}
-      </div>
+        </div>
+      )}
     </section>
   );
 };
