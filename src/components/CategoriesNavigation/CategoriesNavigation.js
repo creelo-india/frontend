@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import "./CategoriesNavigation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronDown,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import categoriesData from "./data/categories.json";
 
 const CategoriesNavigation = () => {
   const [activeCategory, setActiveCategory] = useState(null);
-  const [activeSubcategory, setActiveSubcategory] = useState(null);
 
   const handleMouseEnterCategory = (index) => {
     setActiveCategory(index);
-    setActiveSubcategory(0); // Reset subcategory when switching categories
-  };
-
-  const handleMouseEnterSubcategory = (index) => {
-    setActiveSubcategory(index);
   };
 
   const handleMouseLeave = () => {
     setActiveCategory(null);
-    setActiveSubcategory(null);
   };
 
   return (
@@ -41,43 +31,27 @@ const CategoriesNavigation = () => {
       </ul>
 
       {activeCategory !== null && (
-        <div
-          className="dropdown-content"
-          onMouseEnter={() => setActiveCategory(activeCategory)}
-          onMouseLeave={handleMouseLeave}
-        >
-          {categoriesData[activeCategory].subcategories.map(
-            (subcat, subIndex) => (
-              <div
-                key={subcat.name}
-                className="subcategory-item"
-                onMouseEnter={() => handleMouseEnterSubcategory(subIndex)}
-              >
-                <a
-                  className={activeSubcategory === subIndex ? "active" : ""}
-                  href={subcat.link || "#"}
-                  aria-expanded={activeSubcategory === subIndex}
-                >
-                  {subcat.name} <FontAwesomeIcon icon={faChevronRight} />
-                </a>
-              </div>
-            )
-          )}
-          {activeSubcategory !== null && activeCategory !== null && (
-            <div
-              className="nested-dropdown-content"
-              onMouseEnter={() => setActiveSubcategory(activeSubcategory)}
-              onMouseLeave={handleMouseLeave}
-            >
-              {categoriesData[activeCategory].subcategories[
-                activeSubcategory
-              ].subcategories.map((nestedSubcat) => (
-                <a href={nestedSubcat.link} key={nestedSubcat.name}>
-                  {nestedSubcat.name}
-                </a>
-              ))}
+        <div className="dropdown-content">
+          {categoriesData[activeCategory].subcategories.map((subcat) => (
+            <div key={subcat.name} className="subcategory-item">
+              <a href={subcat.link || "#"}>{subcat.name}</a>
+
+              {/* Nested subcategories */}
+              {subcat.subcategories && (
+                <div className="nested-subcategories">
+                  {subcat.subcategories.map((nestedSubcat) => (
+                    <a
+                      key={nestedSubcat.name}
+                      href={nestedSubcat.link || "#"}
+                      className="nested-subcategory-item"
+                    >
+                      {nestedSubcat.name}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
+          ))}
         </div>
       )}
     </section>
