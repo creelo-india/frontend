@@ -1,0 +1,43 @@
+@import '../../../../variables';
+
+.social-media-feed-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9; // Light background color
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: $primary-color; // Use your primary color
+    }
+
+    .social-media-posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+
+        .social-media-post {
+            background-color: #fff; // White background
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            overflow: hidden;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+
+            .post-image {
+                width: 100%;
+                height: 200px;
+                object-fit: cover; // Ensure the image covers the area without distortion
+            }
+
+            .post-caption {
+                padding: 10px;
+                font-size: 16px;
+                color: #333; // Dark color for caption
+            }
+        }
+    }
+}

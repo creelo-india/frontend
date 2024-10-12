@@ -4,6 +4,7 @@ import { productList } from "../redux/productAction";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import BannerCarousel from "./BannerCarousel/BannerCarousel";
+import MiddleSection from "./MiddleSection/MiddleSection";
 
 function Main() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function Main() {
           ))}
         </div>
       </div>
+      <MiddleSection />
     </>
   );
 }
