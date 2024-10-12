@@ -1,70 +1,65 @@
-@import '../../../../variables';
-
 .promotions-section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    padding: 20px;
+    padding: 40px;
+}
 
-    .promotion-card {
-        position: relative;
-        overflow: hidden;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
+.promotion-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 
-        a {
-            text-decoration: none;
-            color: inherit;
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
 
-            img {
-                width: 100%;
-                height: 250px;
-                object-fit: cover;
-                transition: transform 0.3s;
-            }
+    a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
 
-            .promo-content {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                padding: 20px;
-                text-align: center;
-                color: $white-color;
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 2px solid #e0e0e0;
+    }
 
-                h3 {
-                    font-size: 22px;
-                    margin-bottom: 10px;
-                }
+    .promo-content {
+        padding: 20px;
+        text-align: center;
 
-                p {
-                    font-size: 16px;
-                    margin-bottom: 15px;
-                }
-
-                button {
-                    background-color: $primary-color;
-                    border: none;
-                    padding: 10px 20px;
-                    color: $white-color;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    transition: background-color 0.3s;
-
-                    &:hover {
-                        background-color: darken($primary-color, 10%);
-                    }
-                }
-            }
+        h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        &:hover {
-            transform: scale(1.05);
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
 
-            img {
-                transform: scale(1.1);
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #e55a5a;
             }
         }
     }

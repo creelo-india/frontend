@@ -2,21 +2,21 @@ import React from "react";
 import "./Promotions.scss";
 
 const Promotions = () => {
-  // Sample promotion data
   const promotions = [
     {
       id: 1,
       title: "50% Off on Bathroom Fixtures",
       description:
         "Upgrade your bathroom with stylish fixtures at half the price!",
-      imageUrl: "/images/promotion1.jpg",
+      imageUrl:
+        "https://via.placeholder.com/600x400?text=Bathroom+Fixtures+Sale",
       linkUrl: "/promotions/bathroom-fixtures",
     },
     {
       id: 2,
       title: "Free Shipping on Orders Over $100",
       description: "Shop now and get free shipping on all orders over $100.",
-      imageUrl: "/images/promotion2.jpg",
+      imageUrl: "https://via.placeholder.com/600x400?text=Free+Shipping",
       linkUrl: "/promotions/free-shipping",
     },
     {
@@ -24,7 +24,7 @@ const Promotions = () => {
       title: "Kitchen Sale - Up to 40% Off",
       description:
         "Transform your kitchen with our exclusive sale on appliances and decor.",
-      imageUrl: "/images/promotion3.jpg",
+      imageUrl: "https://via.placeholder.com/600x400?text=Kitchen+Sale",
       linkUrl: "/promotions/kitchen-sale",
     },
   ];
