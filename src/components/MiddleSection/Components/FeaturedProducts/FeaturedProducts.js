@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
+import "./FeaturedProducts.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./FeaturedProducts.scss";
 
 const FeaturedProducts = () => {
   const featuredProducts = [
@@ -48,53 +48,60 @@ const FeaturedProducts = () => {
   ];
 
   const settings = {
-    dots: true,
+    dots: false, // Disabling dots
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    autoplay: true, // Enable autoplay
+    autoplaySpeed: 3000, // Time in ms (3 seconds)
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
   return (
     <div className="featured-products-section">
       <h2 className="section-title">Featured Products</h2>
-      <Slider {...settings} className="carousel-slider">
+      <Slider {...settings}>
         {featuredProducts.map((product) => (
           <div key={product.id} className="product-card">
-            <div className="product-image-wrapper">
-              {product.badge && (
-                <div className={`badge ${product.badge.toLowerCase()}`}>
-                  {product.badge}
-                </div>
-              )}
-              <img src={product.imageUrl} alt={product.name} />
-            </div>
-            <h3>{product.name}</h3>
-            <p className="price">{product.price}</p>
-            <button className="add-to-cart">Add to Cart</button>
+            {product.badge && (
+              <div className="product-badge">{product.badge}</div>
+            )}
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="product-image"
+            />
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">{product.price}</p>
           </div>
         ))}
       </Slider>
     </div>
+  );
+};
+
+// Custom Arrow Components
+const SampleNextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", right: "10px" }}
+      onClick={onClick}
+    />
+  );
+};
+
+const SamplePrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", left: "10px" }}
+      onClick={onClick}
+    />
   );
 };
 
