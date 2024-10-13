@@ -10,7 +10,7 @@ const Blog = () => {
       date: "October 1, 2024",
       excerpt:
         "Discover essential tips for selecting the best bathroom fixtures to enhance your space.",
-      imageUrl: "/images/blog1.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Blog+1", // Placeholder image
       link: "/blog/5-tips-for-choosing-bathroom-fixtures",
     },
     {
@@ -19,7 +19,7 @@ const Blog = () => {
       date: "September 15, 2024",
       excerpt:
         "Explore the latest trends in kitchen design to keep your home stylish and functional.",
-      imageUrl: "/images/blog2.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Blog+2", // Placeholder image
       link: "/blog/trends-in-kitchen-design-2024",
     },
     {
@@ -28,7 +28,7 @@ const Blog = () => {
       date: "August 30, 2024",
       excerpt:
         "Learn how to keep your plumbing system in top shape with these maintenance tips.",
-      imageUrl: "/images/blog3.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Blog+3", // Placeholder image
       link: "/blog/maintaining-your-plumbing-system",
     },
     {
@@ -37,7 +37,7 @@ const Blog = () => {
       date: "August 20, 2024",
       excerpt:
         "Incorporate sustainable practices in your home renovation projects with these ideas.",
-      imageUrl: "/images/blog4.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Blog+4", // Placeholder image
       link: "/blog/sustainable-home-renovation-ideas",
     },
   ];
