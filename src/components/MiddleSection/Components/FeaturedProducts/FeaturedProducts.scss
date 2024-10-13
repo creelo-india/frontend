@@ -1,57 +1,80 @@
 .featured-products-section {
     padding: 20px;
-    text-align: center;
 
-    .section-title {
-        font-size: 24px;
+    h2 {
+        text-align: center;
         margin-bottom: 20px;
     }
 
-    .product-card {
-        position: relative;
-        padding: 10px;
+    .featured-product-card {
         text-align: center;
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #ff6347;
-            color: white;
-            padding: 5px;
-            font-size: 12px;
-            border-radius: 5px;
-        }
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 350px;
 
         .product-image {
             width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
 
         .product-name {
-            font-size: 18px;
-            margin: 10px 0;
+            font-size: 1.2em;
+            margin: 10px 0 5px;
         }
 
         .product-price {
-            font-size: 16px;
-            color: #333;
+            font-size: 1em;
+            color: #777;
+        }
+
+        .add-to-cart-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #45a049;
+            }
         }
     }
 
-    // Custom arrow styles
-    .slick-prev,
-    .slick-next {
-        background-color: #ddd;
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        padding: 10px;
+        cursor: pointer;
         z-index: 1;
 
-        &:before {
-            color: #333;
-            font-size: 20px;
+        &.left-arrow {
+            left: 15px;
         }
+
+        &.right-arrow {
+            right: 15px;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    }
+
+    .slick-prev,
+    .slick-next {
+        display: none; // Hide default arrows
     }
 }
