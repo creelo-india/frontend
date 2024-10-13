@@ -10,7 +10,7 @@ const CustomerReviews = () => {
       rating: 5,
       review:
         "Excellent product! It exceeded my expectations and arrived faster than expected.",
-      avatar: "/images/customer1.jpg",
+      avatar: "https://via.placeholder.com/80", // Use a generic user image
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const CustomerReviews = () => {
       rating: 4,
       review:
         "Good quality, but the shipping took a little longer than I hoped.",
-      avatar: "/images/customer2.jpg",
+      avatar: "https://via.placeholder.com/80", // Use a generic user image
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ const CustomerReviews = () => {
       rating: 5,
       review:
         "Amazing experience! I highly recommend this product to anyone looking for quality.",
-      avatar: "/images/customer3.jpg",
+      avatar: "https://via.placeholder.com/80", // Use a generic user image
     },
   ];
 
@@ -41,6 +41,7 @@ const CustomerReviews = () => {
             <span className="grey-stars">{"★".repeat(5 - review.rating)}</span>
           </div>
           <p className="review-text">"{review.review}"</p>
+          <button className="appreciate-btn">👍 Appreciate</button>
         </div>
       ))}
     </div>

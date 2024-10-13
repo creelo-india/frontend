@@ -7,7 +7,7 @@ const SocialMediaFeed = () => {
     {
       id: 1,
       platform: "Instagram",
-      imageUrl: "/images/insta1.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Instagram+Post+1",
       caption:
         "Loving our new bathroom fixtures! #HomeImprovement #BathroomGoals",
       link: "https://instagram.com/your_profile/post1",
@@ -15,21 +15,21 @@ const SocialMediaFeed = () => {
     {
       id: 2,
       platform: "Facebook",
-      imageUrl: "/images/facebook1.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Facebook+Post+1",
       caption: "Check out our latest kitchen products! #KitchenDesign",
       link: "https://facebook.com/your_profile/post1",
     },
     {
       id: 3,
       platform: "Twitter",
-      imageUrl: "/images/twitter1.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Twitter+Post+1",
       caption: "New arrivals in plumbing supplies! Don’t miss out! #Plumbing",
       link: "https://twitter.com/your_profile/post1",
     },
     {
       id: 4,
       platform: "Instagram",
-      imageUrl: "/images/insta2.jpg",
+      imageUrl: "https://via.placeholder.com/300x200.png?text=Instagram+Post+2",
       caption: "Our customers are loving their new kitchens! #HomeDecor",
       link: "https://instagram.com/your_profile/post2",
     },

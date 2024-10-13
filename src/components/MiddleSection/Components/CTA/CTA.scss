@@ -1,34 +1,58 @@
+@import '../../../../variables'; // Adjust path as necessary
+
 .cta-section {
-    background-color: #007BFF; // Primary color
-    color: #FFFFFF; // White color
+    background-color: $primary-color; // Use your primary color
+    color: $white-color; // Use your white color
     text-align: center;
-    padding: 60px 20px;
-    border-radius: 8px;
-    margin: 40px 0;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
 
     h2 {
         font-size: 28px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     p {
         font-size: 18px;
         margin-bottom: 20px;
+        line-height: 1.5;
     }
 
     .cta-button {
-        background-color: #FFFFFF; // White color
-        color: #007BFF; // Primary color
+        background-color: $white-color; // Use your white color
+        color: $primary-color; // Use your primary color
         padding: 12px 20px;
         border: none;
         border-radius: 5px;
         text-decoration: none;
-        font-weight: bold;
-        transition: background-color 0.3s, color 0.3s;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.3s;
+        display: inline-block; // Ensure it takes up only necessary space
 
         &:hover {
-            background-color: #E0E0E0; // Slightly darker white
-            color: #0056b3; // Darker primary color
+            background-color: darken($white-color, 10%); // Darken on hover
+            transform: scale(1.05); // Slightly increase size on hover
         }
+    }
+
+    &:hover {
+        transform: scale(1.02); // Scale up the entire section on hover
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 24px; // Adjust size for mobile
+    }
+
+    p {
+        font-size: 16px; // Adjust size for mobile
+    }
+
+    .cta-button {
+        padding: 10px 15px; // Adjust padding for mobile
+        font-size: 14px; // Adjust font size for mobile
     }
 }
