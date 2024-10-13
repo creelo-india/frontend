@@ -2,31 +2,30 @@ import React from "react";
 import "./Brands.scss";
 
 const Brands = () => {
-  // Sample data for brand logos
   const brands = [
     {
       id: 1,
-      name: "Brand 1",
-      logoUrl: "/images/brand1-logo.png",
-      link: "/brands/brand1",
+      name: "Kohler",
+      logoUrl: "https://via.placeholder.com/150?text=Kohler",
+      link: "/brands/kohler",
     },
     {
       id: 2,
-      name: "Brand 2",
-      logoUrl: "/images/brand2-logo.png",
-      link: "/brands/brand2",
+      name: "Multitubo",
+      logoUrl: "https://via.placeholder.com/150?text=Multitubo",
+      link: "/brands/multitubo",
     },
     {
       id: 3,
-      name: "Brand 3",
-      logoUrl: "/images/brand3-logo.png",
-      link: "/brands/brand3",
+      name: "Viega",
+      logoUrl: "https://via.placeholder.com/150?text=Viega",
+      link: "/brands/viega",
     },
     {
       id: 4,
-      name: "Brand 4",
-      logoUrl: "/images/brand4-logo.png",
-      link: "/brands/brand4",
+      name: "Toto",
+      logoUrl: "https://via.placeholder.com/150?text=Toto",
+      link: "/brands/toto",
     },
   ];
 
@@ -36,7 +35,17 @@ const Brands = () => {
       <div className="brands-grid">
         {brands.map((brand) => (
           <a key={brand.id} href={brand.link} className="brand-card">
-            <img src={brand.logoUrl} alt={brand.name} className="brand-logo" />
+            <div className="brand-logo-container">
+              <img
+                src={brand.logoUrl}
+                alt={brand.name}
+                className="brand-logo"
+                loading="lazy"
+              />
+              <div className="brand-overlay">
+                <span>{brand.name}</span>
+              </div>
+            </div>
           </a>
         ))}
       </div>
