@@ -1,0 +1,101 @@
+.customer-reviews {
+    display: flex;
+    flex-wrap: wrap; // Allows wrapping of review cards
+    align-items: flex-start; // Aligns items at the start
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    width: 100%;
+    justify-content: space-around; // Spread items evenly
+}
+
+.customer-reviews:hover {
+    background-color: #f0f0f0; // Darken background on hover
+}
+
+.review-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px; // Ensure there's space between cards
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; // Animate transform and shadow
+
+    &:hover {
+        transform: scale(1.05); // Scale effect on hover
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); // Enhance shadow on hover
+        cursor: pointer; // Show pointer cursor on hover
+    }
+
+    .avatar {
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 2px solid #f39c12; // Border for avatar
+        transition: border-color 0.3s; // Smooth border color transition
+
+        &:hover {
+            border-color: #e67e22; // Change border color on hover
+        }
+    }
+
+    h3 {
+        font-size: 20px;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .rating {
+        color: #f39c12;
+        margin-bottom: 10px;
+
+        .grey-stars {
+            color: #ccc;
+        }
+    }
+
+    .review-text {
+        font-size: 16px;
+        color: #666;
+        margin-top: 10px;
+        line-height: 1.5;
+    }
+
+    .appreciate-btn {
+        background-color: #f39c12; // Button color
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s; // Smooth transition for button
+
+        &:hover {
+            background-color: darken(#f39c12, 10%); // Darken on hover
+            transform: scale(1.05); // Scale effect on button hover
+        }
+
+        &:focus {
+            outline: none; // Remove focus outline
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); // Add shadow on focus
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .customer-reviews {
+        flex-direction: column; // Stack items vertically on small screens
+        align-items: center; // Center items
+    }
+
+    .review-card {
+        max-width: 100%; // Full width on small screens
+    }
+}

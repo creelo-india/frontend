@@ -1,0 +1,207 @@
+.new-arrivals {
+    padding: 20px;
+    background-color: #f9f9f9;
+
+    h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 480px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .product-card {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+
+            .product-image {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+            .wishlist-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 24px;
+                color: #ff4757;
+                transition: transform 0.3s ease;
+
+                &.active {
+                    color: #ff4757;
+                    /* Change color when in wishlist */
+                }
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #333;
+            margin: 15px 0 5px;
+        }
+
+        .product-price {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .product-rating {
+            text-align: center;
+            font-size: 1rem;
+            color: #ffcd3c;
+
+            span {
+                font-size: 20px;
+
+                &.filled {
+                    color: #ffcd3c;
+                    /* Filled star color */
+                }
+            }
+        }
+
+        .view-details-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        animation: fadeIn 0.3s;
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .add-to-cart {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #218838;
+            }
+        }
+
+        .close-modal {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #c82333;
+            }
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

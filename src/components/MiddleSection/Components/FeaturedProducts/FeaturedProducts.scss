@@ -1,0 +1,111 @@
+.featured-products-section {
+    padding: 20px;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .featured-product-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            margin: 10px 0 5px;
+        }
+
+        .product-price {
+            font-size: 1em;
+            color: #777;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+            height: 40px;
+            /* Ensures consistent height even with varying text lengths */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-availability {
+            font-size: 13px;
+            font-weight: 600;
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+
+        .product-rating {
+            font-size: 14px;
+            color: #ff9900;
+            margin-bottom: 12px;
+
+            /* Additional star icon styling, if needed */
+            .stars {
+                color: #ffd700;
+                font-size: 12px;
+            }
+        }
+
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 1;
+
+        &.left-arrow {
+            left: 15px;
+        }
+
+        &.right-arrow {
+            right: 15px;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    }
+
+    .slick-prev,
+    .slick-next {
+        display: none; // Hide default arrows
+    }
+}

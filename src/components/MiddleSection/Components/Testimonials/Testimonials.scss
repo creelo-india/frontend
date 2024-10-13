@@ -1,0 +1,50 @@
+@import '../../../../variables';
+
+.testimonials-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9; // Light background color
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: $primary-color; // Use your primary color
+    }
+
+    .testimonials-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+
+        .testimonial-card {
+            background-color: #fff; // White background
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s;
+
+            .testimonial-feedback {
+                font-size: 16px;
+                margin-bottom: 10px;
+                font-style: italic;
+                color: #666; // Dark gray for feedback
+            }
+
+            .testimonial-name {
+                font-size: 16px;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #333; // Dark color for name
+            }
+
+            .testimonial-rating {
+                font-size: 18px;
+                color: gold; // Color for stars
+            }
+
+            &:hover {
+                transform: scale(1.03);
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+.promotions-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.promotion-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease; // Increased duration for smoother effect
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.4s ease; // Increased duration for smoother zoom effect
+
+        &:hover {
+            transform: scale(1.1); // Image zoom effect
+        }
+    }
+
+    .promo-content {
+        padding: 20px;
+        text-align: center;
+
+        h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            transition: text-shadow 0.4s ease; // Increased duration for smoother text shadow
+
+            &:hover {
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #ff6b6b; // Base button color
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.4s ease; // Increased duration for smoother button effects
+
+            &:hover {
+                background-color: #ff4a4a; // Darker shade on hover
+                transform: translateY(-2px); // Slight lift effect on hover
+            }
+        }
+    }
+}
