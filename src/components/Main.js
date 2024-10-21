@@ -17,7 +17,7 @@ function Main() {
   return (
     <>
       <BannerCarousel />
-      <div>
+      {/* <div>
         <div>
           <button onClick={() => dispatch(emptyCart())}>Empty Cart</button>
         </div>
@@ -26,10 +26,9 @@ function Main() {
             <div className="product-item">
               <img src={item.image} alt="" />
               <div>title : {item.title} </div>
-              {/* <div>Color : {item.color} </div> */}
+           
               <div>Price : {item.views} </div>
-              {/* <div>Category : {item.category} </div> */}
-              {/* <div>Brand : {item.brand} </div> */}
+             
               <div>
                 <button onClick={() => dispatch(addToCart(item))}>
                   Add to Cart
@@ -41,7 +40,7 @@ function Main() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <MiddleSection />
     </>
   );

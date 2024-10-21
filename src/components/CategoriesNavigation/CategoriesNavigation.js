@@ -8,9 +8,8 @@ import axios from "axios";
 const buildCategoryTree = (categories) => {
   const categoryMap = {};
 
-  // Create a map of categories by ID for easy lookup
   categories.forEach((category) => {
-    category.children = []; // Initialize children array
+    category.children = [];
     categoryMap[category.id] = category;
   });
 
@@ -18,10 +17,8 @@ const buildCategoryTree = (categories) => {
 
   categories.forEach((category) => {
     if (category.parent) {
-      // If the category has a parent, add it to the parent's children array
       categoryMap[category.parent]?.children.push(category);
     } else {
-      // If the category has no parent, it's a top-level category
       nestedCategories.push(category);
     }
   });
@@ -33,12 +30,10 @@ const CategoriesNavigation = () => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
 
-  // Fetch categories from the API
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/master-config/categories/")
       .then((response) => {
-        console.log("API Response:", response.data); // Debug response
         const structuredCategories = buildCategoryTree(response.data);
         setCategories(structuredCategories);
       })
@@ -48,16 +43,14 @@ const CategoriesNavigation = () => {
   const handleMouseEnterCategory = (index) => setActiveCategory(index);
   const handleMouseLeave = () => setActiveCategory(null);
 
-  // Render categories recursively
   const renderCategories = (category) => (
-    <div key={category.id} className="category-item">
+    <div key={category.id} className="subcategory-item">
       <p>
         <a href={category.link || "#"}>{category.name}</a>
         {category.children.length > 0 && <FontAwesomeIcon icon={faChevronDown} />}
       </p>
-
       {category.children.length > 0 && (
-        <div className="subcategory-content">
+        <div className="nested-subcategories">
           {category.children.map(renderCategories)}
         </div>
       )}
@@ -70,7 +63,10 @@ const CategoriesNavigation = () => {
     <section className="cat-nav-container" onMouseLeave={handleMouseLeave}>
       <ul className="category-list">
         {categories.map((category, index) => (
-          <li key={category.id} onMouseEnter={() => handleMouseEnterCategory(index)}>
+          <li
+            key={category.id}
+            onMouseEnter={() => handleMouseEnterCategory(index)}
+          >
             <p aria-expanded={activeCategory === index}>
               {category.name} <FontAwesomeIcon icon={faChevronDown} />
             </p>

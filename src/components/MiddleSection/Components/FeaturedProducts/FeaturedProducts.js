@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./FeaturedProducts.scss";
+import { useDispatch } from "react-redux";
+// import { productList } from "./redux/productAction";
+import { useSelector } from "react-redux";
+import { productList } from "../../../../redux/productAction";
 
 const FeaturedProducts = () => {
+
+  const dispatch = useDispatch();
+  let data = useSelector((state) => state.productData);
+  console.warn("######################## product list is", data);
+
+  useEffect(() => {
+    dispatch(productList());
+  }, []);
   const featuredProducts = [
     {
       id: 1,

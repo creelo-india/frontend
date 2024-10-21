@@ -31,10 +31,9 @@ const handleSubmit = async (values, { setSubmitting }) => {
       const response = await axiosClient.post("/accounts/verify-email/", { email: values.email });
       console.log("Response data:", response.data);
       if (response.status === 200) {
-        console.log("%%%%%%%%%%%%%%%%%%%%")
         setIsEmailVerified(true);
-        setErrorMessage(""); // Clear any previous error messages
-        console.log("Faild data iss")
+        setErrorMessage(""); 
+  
       } else {
         setErrorMessage("Email does not exist. Please try again.");
       }
@@ -89,7 +88,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
               placeholder="Email"
               onChange={(e) => {
                 setFieldValue("email", e.target.value);
-                setIsEmailVerified(false); // Reset email verification state when typing
+                setIsEmailVerified(false); 
                 setErrorMessage(""); // Clear error messages when typing
               }}
             />
