@@ -32,7 +32,7 @@ const CategoriesNavigation = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/master-config/categories/")
+      .get("http://16.16.172.145/master-config/categories/")
       .then((response) => {
         const structuredCategories = buildCategoryTree(response.data);
         setCategories(structuredCategories);
@@ -47,7 +47,9 @@ const CategoriesNavigation = () => {
     <div key={category.id} className="subcategory-item">
       <p>
         <a href={category.link || "#"}>{category.name}</a>
-        {category.children.length > 0 && <FontAwesomeIcon icon={faChevronDown} />}
+        {category.children.length > 0 && (
+          <FontAwesomeIcon icon={faChevronDown} />
+        )}
       </p>
       {category.children.length > 0 && (
         <div className="nested-subcategories">
