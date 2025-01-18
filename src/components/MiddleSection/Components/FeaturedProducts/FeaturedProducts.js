@@ -170,31 +170,43 @@ const FeaturedProducts = () => {
 
   return (
     <div className="featured-products-section">
-      <h2>Featured Products</h2>
-      <Slider
-        {...settings}
-        onMouseEnter={() => setAutoplay(false)}
-        onMouseLeave={() => setAutoplay(true)}
-      >
-        {featuredProducts.map((product) => (
-          <div key={product.id} className="featured-product-card">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="product-image"
-            />
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">{product.price}</p>
-            <p className="product-description">{product.description}</p>
-            <p className="product-availability">{product.availability}</p>
-            <p className="product-rating">
-              {product.rating} stars ({product.reviews} reviews)
-            </p>
-            <button className="add-to-cart-btn">Add to Cart</button>
-          </div>
-        ))}
-      </Slider>
-    </div>
+  <h2>Featured Products</h2>
+  <Slider
+    {...settings}
+    onMouseEnter={() => setAutoplay(false)}
+    onMouseLeave={() => setAutoplay(true)}
+  >
+   {data.map((product) => (
+  <div key={product.id} className="featured-product-card">
+    {product.images && product.images[0] && product.images[0].image ? (
+      <img
+        src={`http://localhost:8000${product.images[0].image.replace(/\/$/, '')}`} 
+        alt={product.name}
+        className="product-image"
+      />
+    ) : (
+      <img
+        src="/path/to/placeholder-image.jpg" // Fallback image if no image
+        alt="No image available"
+        className="product-image"
+      />
+    )}
+    <h3 className="product-name">{product.name}</h3>
+    <p className="product-price">{product.price}</p>
+    <p className="product-description">{product.description}</p>
+    <p className="product-availability">{product.availability}</p>
+    <p className="product-rating">
+      {product.rating} stars ({product.reviews} reviews)
+    </p>
+    <button className="add-to-cart-btn">Add to Cart</button>
+  </div>
+))}
+
+
+
+
+  </Slider>
+</div>
   );
 };
 
