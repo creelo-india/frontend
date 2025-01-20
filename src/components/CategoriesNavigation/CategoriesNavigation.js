@@ -35,7 +35,7 @@ const CategoriesNavigation = () => {
   useEffect(() => {
     // Use the axiosClient to make API requests
     axiosClient
-      .get("master-config/categories/") // Only the endpoint, base URL is automatically handled
+      .get("master-config/categories/") 
       .then((response) => {
         const structuredCategories = buildCategoryTree(response.data);
         setCategories(structuredCategories);
