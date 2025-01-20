@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 // import { productList } from "./redux/productAction";
 import { useSelector } from "react-redux";
 import { productList } from "../../../../redux/productAction";
+import { CONFIG } from "../../../../api/config";
 
 const FeaturedProducts = () => {
 
   const dispatch = useDispatch();
   let data = useSelector((state) => state.productData);
-  console.warn("######################## product list is", data);
 
   useEffect(() => {
     dispatch(productList());
@@ -179,8 +179,9 @@ const FeaturedProducts = () => {
    {data.map((product) => (
   <div key={product.id} className="featured-product-card">
     {product.images && product.images[0] && product.images[0].image ? (
-      <img
-        src={`http://localhost:8000${product.images[0].image.replace(/\/$/, '')}`} 
+       <img
+    
+        src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, '')}`} 
         alt={product.name}
         className="product-image"
       />

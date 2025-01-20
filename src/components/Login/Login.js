@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"; // For validation
-import axiosClient from "../../api/interceptorApi"; // Corrected import path
+import axiosClient from "../../api/interceptorApi"; 
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 

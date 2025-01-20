@@ -1,14 +1,20 @@
-import { takeEvery, put } from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects';
 import { PRODUCT_LIST, SET_PRODUCT_LIST } from './constant';
+// import { CONFIG } from './config'; // Import the config file for the base URL
+import { CONFIG } from '../api/config';
 
 function* getProducts() {
-    let data = yield fetch('http://127.0.0.1:8000/api/get-product');  
-    data = yield data.json();
-    console.log("action is called", data)
-    yield put({type: SET_PRODUCT_LIST, data})
+    // Use the baseURL from the config
+    const response = yield fetch(`${CONFIG.BASE_URL}api/get-product`);
+    let data = yield response.json();
+    console.log("action is called", data);
+
+    // Dispatch the action to set the product list in the state
+    yield put({ type: SET_PRODUCT_LIST, data });
 }
+
 function* productSaga() {
-    yield takeEvery(PRODUCT_LIST, getProducts)
+    yield takeEvery(PRODUCT_LIST, getProducts);
 }
 
 export default productSaga;

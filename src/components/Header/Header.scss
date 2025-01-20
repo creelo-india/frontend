@@ -125,3 +125,46 @@ a.brand-logo {
     cursor: pointer;
   }
 }
+
+
+
+//  cart csss 
+
+
+
+.cart-details {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: skyblue;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 300px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.cart-details h4 {
+  margin: 0 0 10px;
+}
+
+.cart-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-details li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.cart-details li:last-child {
+  border-bottom: none;
+}
+
+.cart-details h5 {
+  margin-top: 10px;
+  text-align: right;
+}

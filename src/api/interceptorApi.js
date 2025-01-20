@@ -1,12 +1,13 @@
 import axios from "axios";
+import { CONFIG } from "./config"; 
 
-// Create an Axios instance
+// Create an Axios instance with dynamic base URL from config.js
 const axiosClient = axios.create({
-  baseURL: "http://16.16.172.145/",
+  baseURL: CONFIG.BASE_URL, 
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json", 
   },
-});
+})
 
 // Request interceptor
 // axiosClient.interceptors.request.use(

@@ -1,120 +1,113 @@
-import React, { useState,useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "./Header.scss";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-
+import "./Header.scss";
 
 const Header = () => {
-  const cartItems = useSelector((state) => state.cartData || []);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const navigate = useNavigate(); 
- 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cartData, setCartData] = useState(null);
+  const [showCartDetails, setShowCartDetails] = useState(false);
+  const navigate = useNavigate();
 
-  const primeCategories = [
-    "Electronics",
-    "Books",
-    "Clothing",
-    "Home Appliances",
-    "Toys",
-    "Sports Equipment",
-  ];
+  // Fetch cart data
+  const fetchCartData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://127.0.0.1:8000/api/cart/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  // Filter categories based on the search term
-  const filteredCategories = searchTerm
-    ? primeCategories.filter((category) =>
-        category.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : primeCategories;
-
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleFocus = () => {
-    setShowSuggestions(true);
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => setShowSuggestions(false), 100);
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setSearchTerm(suggestion);
-    setShowSuggestions(false);
-  };
-
-  const handleSearch = () => {
-    console.log("Search initiated for:", searchTerm);
-    // Add your search functionality here
-    // You can trigger a search API call or filter products based on the searchTerm
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
+      if (response.ok) {
+        const data = await response.json();
+        setCartData(data);
+      } else {
+        console.error("Failed to fetch cart data.");
+      }
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
     }
   };
+
   useEffect(() => {
-    const handleStorageChange = () => {
-      const token = localStorage.getItem('token');
-      setIsLoggedIn(!!token);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
+    fetchCartData();
   }, []);
 
-  // Handle logout
+  // Handle cart actions: increase, reduce, delete
+  const handleCartAction = async (productId, action) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://127.0.0.1:8000/api/add-to-cart/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product_id: productId, action }),
+      });
+
+      if (response.ok) {
+        fetchCartData(); // Refresh cart data after action
+      } else {
+        console.error(`Failed to ${action} product in cart.`);
+      }
+    } catch (error) {
+      console.error(`Error performing ${action} action:`, error);
+    }
+  };
+
+  const handleCartClick = () => {
+    setShowCartDetails(!showCartDetails);
+  };
+
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate("/login");
   };
 
-
   return (
     <div className="header">
-      {/* Brand Logo */}
       <Link to="/" className="brand-logo">
         Creelo.in
       </Link>
 
-      {/* Product Search */}
       <div className="search-bar">
         <input
           type="text"
           placeholder="Search for products..."
           value={searchTerm}
-          onChange={handleInputChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onKeyPress={handleKeyPress}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
+          onKeyPress={(e) => e.key === "Enter" && console.log("Search:", searchTerm)}
         />
-        <button type="button" onClick={handleSearch}>
+        <button type="button">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
 
-        {/* Suggestion Box */}
         {showSuggestions && (
           <ul className="suggestion-box">
-            {filteredCategories.map((category, index) => (
-              <li key={index} onClick={() => handleSuggestionClick(category)}>
-                {category}
-              </li>
-            ))}
+            {["Electronics", "Books", "Clothing", "Home Appliances", "Toys", "Sports Equipment"]
+              .filter((cat) =>
+                cat.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((cat, index) => (
+                <li key={index} onClick={() => setSearchTerm(cat)}>
+                  {cat}
+                </li>
+              ))}
           </ul>
         )}
       </div>
 
-      {/* Login Button */}
       <div className="auth-button">
         {isLoggedIn ? (
           <button onClick={handleLogout} type="button">
@@ -127,11 +120,32 @@ const Header = () => {
         )}
       </div>
 
-
-      {/* Cart */}
-      <div className="cart-div">
-        <span>{cartItems.length}</span>
+      <div className="cart-div" onClick={handleCartClick}>
+        <span>{cartData ? cartData.items.length : 0}</span>
         <IoCartOutline />
+        {showCartDetails && cartData && (
+          <div className="cart-details">
+            <h4>Cart Items</h4>
+            <ul>
+              {cartData.items.map((item) => (
+                <li key={item.id}>
+                  <div>
+                    <strong>{item.product_name}</strong>
+                    <p>Price: ₹{item.product_price}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Total: ₹{item.get_total_price}</p>
+                  </div>
+                  <div className="cart-actions">
+                    <button onClick={() => handleCartAction(item.product, "increase")}>+</button>
+                    <button onClick={() => handleCartAction(item.product, "reduce")}>-</button>
+                    <button onClick={() => handleCartAction(item.product, "delete")}>Delete</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <h5>Total Price: ₹{cartData.total_price}</h5>
+          </div>
+        )}
       </div>
     </div>
   );
