@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./FeaturedProducts.scss";
-import { useDispatch } from "react-redux";
+
 // import { productList } from "./redux/productAction";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { productList } from "../../../../redux/productAction";
 import { CONFIG } from "../../../../api/config";
+import { addToCart,emptyCart, removeToCart } from "../../../../redux/action";
+
+import { useDispatch, useSelector } from "react-redux";
 
 const FeaturedProducts = () => {
 
@@ -168,6 +171,19 @@ const FeaturedProducts = () => {
     );
   }
 
+
+  const handleAddToCart = (product) => {
+    console.log("handel submit to cart function is called here",product)
+    const payload = {
+        product_id: product.id,
+        action: "add",
+        quantity: 1, 
+    };
+
+    dispatch(addToCart(payload));
+};
+
+
   return (
     <div className="featured-products-section">
   <h2>Featured Products</h2>
@@ -199,7 +215,9 @@ const FeaturedProducts = () => {
     <p className="product-rating">
       {product.rating} stars ({product.reviews} reviews)
     </p>
-    <button className="add-to-cart-btn">Add to Cart</button>
+    <button onClick={() => handleAddToCart(product)}>
+                        Add to Cart
+                    </button>
   </div>
 ))}
 

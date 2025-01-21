@@ -4,20 +4,65 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.scss";
+import { CONFIG } from "../../api/config";
+import { useDispatch } from "react-redux";
+
+
+import { fetchCart } from "../../redux/action";
+
+   
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cartData, setCartData] = useState(null);
   const [showCartDetails, setShowCartDetails] = useState(false);
   const navigate = useNavigate();
+ 
+
+  // Check if the user is logged in
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token); // Set to true if token exists, otherwise false
+    };
+
+
+
+    // Initial check on component mount
+    checkLoginStatus();
+
+    // Listen for storage changes (e.g., user logs in/out in another tab)
+    window.addEventListener("storage", checkLoginStatus);
+
+    return () => {
+      window.removeEventListener("storage", checkLoginStatus);
+    };
+  }, []);
+
+
+
+
+ 
+  
+      useEffect(() => {
+          // Fetch cart data when the component mounts
+          dispatch(fetchCart());
+      }, [dispatch]);
+  
+
 
   // Fetch cart data
   const fetchCartData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/api/cart/", {
+      if (!token) return; // Prevent API call if the user is not logged in
+
+      //  const response = yield fetch(`${CONFIG.BASE_URL}api/get-product`);
+
+      const response = await fetch(`${CONFIG.BASE_URL}/api/cart/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -37,14 +82,16 @@ const Header = () => {
   };
 
   useEffect(() => {
-    fetchCartData();
-  }, []);
+    if (isLoggedIn) {
+      fetchCartData();
+    }
+  }, [isLoggedIn]);
 
   // Handle cart actions: increase, reduce, delete
   const handleCartAction = async (productId, action) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/api/add-to-cart/", {
+      const response = await fetch(`${CONFIG.BASE_URL}api/add-to-cart/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
