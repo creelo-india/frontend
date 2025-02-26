@@ -1,3 +1,3 @@
 export const CONFIG = {
-    BASE_URL: "http://127.0.0.1:8000/", // Change this URL if needed
+    BASE_URL: "http://18.212.69.104/", // Change this URL if needed
   };

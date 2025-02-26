@@ -17,30 +17,6 @@ function Main() {
   return (
     <>
       <BannerCarousel />
-      {/* <div>
-        <div>
-          <button onClick={() => dispatch(emptyCart())}>Empty Cart</button>
-        </div>
-        <div className="product-container">
-          {data.map((item) => (
-            <div className="product-item">
-              <img src={item.image} alt="" />
-              <div>title : {item.title} </div>
-           
-              <div>Price : {item.views} </div>
-             
-              <div>
-                <button onClick={() => dispatch(addToCart(item))}>
-                  Add to Cart
-                </button>
-                <button onClick={() => dispatch(removeToCart(item.id))}>
-                  Remove to Cart
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
       <MiddleSection />
     </>
   );

@@ -1,66 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./TopSellingProducts.scss";
+import { productList } from "../../../../redux/productAction";
+import { useDispatch, useSelector } from "react-redux";
+import { CONFIG } from "../../../../api/config";
 
 const TopSellingProducts = () => {
-  const topSellingProducts = [
-    {
-      id: 1,
-      name: "Modern Bathroom Faucet",
-      price: "$199.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Modern+Bathroom+Faucet",
-    },
-    {
-      id: 2,
-      name: "Luxury Shower System",
-      price: "$299.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Luxury+Shower+System",
-    },
-    {
-      id: 3,
-      name: "Kitchen Sink with Pull Down Sprayer",
-      price: "$249.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Kitchen+Sink+with+Pull+Down+Sprayer",
-    },
-    {
-      id: 4,
-      name: "Stainless Steel Dishwasher",
-      price: "$799.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Stainless+Steel+Dishwasher",
-    },
-    {
-      id: 5,
-      name: "Elegant Bathroom Vanity",
-      price: "$499.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Elegant+Bathroom+Vanity",
-    },
-    {
-      id: 6,
-      name: "Eco-Friendly Toilet",
-      price: "$349.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Eco-Friendly+Toilet",
-    },
-    {
-      id: 7,
-      name: "Designer Shower Curtain",
-      price: "$39.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Designer+Shower+Curtain",
-    },
-    {
-      id: 8,
-      name: "Smart Kitchen Faucet",
-      price: "$229.99",
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Smart+Kitchen+Faucet",
-    },
-  ];
+
+
+  const dispatch = useDispatch();
+  let data = useSelector((state) => state.productData);
+  console.log("top selling product is",data)
+  const featuredProducts = data.filter((product) => product.is_featured_product);
+
+
+  useEffect(() => {
+    dispatch(productList());
+  }, []);
 
   const [autoplay, setAutoplay] = useState(true);
   const [autoplaySpeed] = useState(3000);
@@ -133,13 +89,21 @@ const TopSellingProducts = () => {
         onMouseEnter={() => setAutoplay(false)}
         onMouseLeave={() => setAutoplay(true)}
       >
-        {topSellingProducts.map((product) => (
+        {featuredProducts.map((product) => (
           <div key={product.id} className="top-selling-product-card">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="product-image"
-            />
+            {product.images && product.images[0] && product.images[0].image ? (
+                   <img
+                    src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, '')}`} 
+                    alt={product.name}
+                    className="product-image"
+                  />
+                ) : (
+                  <img
+                    src="/path/to/placeholder-image.jpg" 
+                    alt="No image available"
+                    className="product-image"
+                  />
+                )}
             <h3 className="product-name">{product.name}</h3>
             <p className="product-price">{product.price}</p>
             <button className="add-to-cart-btn">Add to Cart</button>
