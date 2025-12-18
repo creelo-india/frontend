@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header/Header";
+import Header from "./components/MegaMenu/Header";
 import Main from "./components/Main";
 import Login from "./components/Login/Login";
-import CategoriesNavigation from "./components/CategoriesNavigation/CategoriesNavigation";
 import ProductListingPage from "./components/ProductListingPage/ProductListingPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,7 +14,6 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <CategoriesNavigation />
 
         <main>
           <Routes>

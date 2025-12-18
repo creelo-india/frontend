@@ -3,8 +3,9 @@ import "./CategoriesNavigation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-// import axiosClient from "../../api/interceptorApi"; 
+// import axiosClient from "../../api/interceptorApi";
 import axiosClient from "../../api/interceptorApi";
+import fallbackCategories from "./data/categories.json";
 
 // Helper function to convert flat data into a nested structure
 const buildCategoryTree = (categories) => {
@@ -28,21 +29,46 @@ const buildCategoryTree = (categories) => {
   return nestedCategories;
 };
 
+// Normalize the bundled JSON categories so UI can reuse the same renderer.
+const mapStaticCategories = (nodes = []) =>
+  nodes.map((node) => ({
+    id: node.id || node.name,
+    name: node.name,
+    link: node.link,
+    children: mapStaticCategories(
+      node.subcategories || node.nestedsubcategories || []
+    ),
+  }));
+
 const CategoriesNavigation = () => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
 
   useEffect(() => {
-    // Use the axiosClient to make API requests
-    axiosClient
-      .get("master-config/categories/") 
-      .then((response) => {
-        const structuredCategories = buildCategoryTree(response.data);
-        setCategories(structuredCategories);
-      })
-      .catch((error) => {
+    let cancelled = false;
+
+    const loadCategories = async () => {
+      try {
+        const response = await axiosClient.get("master-config/categories/");
+        const apiCategories = Array.isArray(response.data) ? response.data : [];
+
+        const structuredCategories =
+          apiCategories.length > 0
+            ? buildCategoryTree(apiCategories)
+            : mapStaticCategories(fallbackCategories);
+
+        if (!cancelled) setCategories(structuredCategories);
+      } catch (error) {
         console.error("Error fetching categories:", error);
-      });
+        if (!cancelled) setCategories(mapStaticCategories(fallbackCategories));
+      }
+    };
+
+    loadCategories();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleMouseEnterCategory = (index) => setActiveCategory(index);
@@ -68,10 +94,7 @@ const CategoriesNavigation = () => {
   if (categories.length === 0) return <p>Loading categories...</p>;
 
   return (
-    <section
-      className="cat-nav-container"
-      onMouseLeave={handleMouseLeave}
-    >
+    <section className="cat-nav-container" onMouseLeave={handleMouseLeave}>
       <ul className="category-list">
         {categories.map((category, index) => (
           <li
