@@ -2,20 +2,58 @@
 
 // BannerCarousel.scss
 
-.carousel-item img {
-  height: 500px;
-  object-fit: cover;
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
 
-  @media (max-width: $breakpoint-md) {
-    height: 300px;
+.carousel-item {
+  position: relative;
+  width: 100%;
+
+  img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+
+    @media (max-width: $breakpoint-md) {
+      height: 300px;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      height: 250px;
+    }
   }
 }
 
 .carousel-caption {
   background-color: $bg-overlay;
-  padding: $spacing-lg;
+  padding: $spacing-lg $spacing-xl;
   border-radius: $radius-md;
   backdrop-filter: blur(4px);
+  position: absolute;
+  bottom: $spacing-xl;
+  left: $spacing-xl;
+  right: auto;
+  text-align: left;
+  max-width: 500px;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-md $spacing-lg;
+    bottom: $spacing-lg;
+    left: $spacing-lg;
+    max-width: 400px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-sm $spacing-md;
+    bottom: $spacing-md;
+    left: $spacing-md;
+    right: $spacing-md;
+    max-width: 100%;
+  }
 }
 
 .carousel-caption h3 {
@@ -24,9 +62,14 @@
   color: $white;
   font-family: $font-heading;
   margin-bottom: $spacing-sm;
+  line-height: $line-height-tight;
 
   @media (max-width: $breakpoint-md) {
     font-size: $font-size-2xl;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: $font-size-xl;
   }
 }
 
@@ -35,8 +78,88 @@
   color: $white;
   font-family: $font-primary;
   margin: 0;
+  line-height: $line-height-normal;
 
   @media (max-width: $breakpoint-md) {
     font-size: $font-size-base;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: $font-size-sm;
+  }
+}
+
+// Carousel Controls
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+  height: 50px;
+  background: $bg-overlay;
+  border-radius: $radius-full;
+  opacity: 0.8;
+  transition: opacity $transition-base, background $transition-base;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.carousel-control-prev {
+  left: $spacing-lg;
+
+  @media (max-width: $breakpoint-sm) {
+    left: $spacing-sm;
+  }
+}
+
+.carousel-control-next {
+  right: $spacing-lg;
+
+  @media (max-width: $breakpoint-sm) {
+    right: $spacing-sm;
+  }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+// Carousel Indicators
+.carousel-indicators {
+  margin-bottom: $spacing-lg;
+
+  [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: $radius-full;
+    background: $white;
+    opacity: 0.5;
+    border: 2px solid $white;
+    transition: all $transition-base;
+
+    &.active {
+      opacity: 1;
+      background: $btn-primary-bg;
+      border-color: $btn-primary-bg;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-bottom: $spacing-md;
   }
 }

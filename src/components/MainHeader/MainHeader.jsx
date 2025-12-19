@@ -66,14 +66,14 @@ const MainHeader = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="20" cy="20" r="20" fill="#F9A401" />
+              <circle cx="20" cy="20" r="20" fill="#FF7A00" />
               <path
                 d="M15 15L25 15L23 25L17 25L15 15Z"
                 fill="white"
                 stroke="white"
                 strokeWidth="1.5"
               />
-              <circle cx="20" cy="20" r="2" fill="#F9A401" />
+              <circle cx="20" cy="20" r="2" fill="#FF7A00" />
             </svg>
           </div>
 
