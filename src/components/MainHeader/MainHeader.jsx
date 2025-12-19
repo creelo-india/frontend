@@ -12,8 +12,9 @@ import styles from "./MainHeader.module.scss";
 const MainHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Category");
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const categoryRef = useRef(null);
+  const searchCategoryRef = useRef(null);
 
   const categories = [
     "All Categories",
@@ -27,7 +28,12 @@ const MainHeader = () => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (categoryRef.current && !categoryRef.current.contains(event.target)) {
+      if (
+        categoryRef.current &&
+        !categoryRef.current.contains(event.target) &&
+        searchCategoryRef.current &&
+        !searchCategoryRef.current.contains(event.target)
+      ) {
         setShowCategoryDropdown(false);
       }
     };
@@ -127,11 +133,13 @@ const MainHeader = () => {
         <form className={styles.searchSection} onSubmit={handleSearch}>
           <div className={styles.searchBar}>
             {/* Category Part */}
-            <div className={styles.searchCategory}>
+            <div className={styles.searchCategory} ref={searchCategoryRef}>
               <button
                 type="button"
                 className={styles.searchCategoryButton}
                 onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+                aria-expanded={showCategoryDropdown}
+                aria-haspopup="true"
               >
                 {selectedCategory}
                 <FontAwesomeIcon
@@ -139,6 +147,22 @@ const MainHeader = () => {
                   className={styles.searchDropdownIcon}
                 />
               </button>
+              {showCategoryDropdown && (
+                <div className={styles.categoryMenu}>
+                  {categories.map((category, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={`${styles.categoryOption} ${
+                        selectedCategory === category ? styles.active : ""
+                      }`}
+                      onClick={() => handleCategorySelect(category)}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Search Input */}

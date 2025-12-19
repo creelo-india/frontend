@@ -107,9 +107,10 @@
 
 .categoryDropdown {
     position: relative;
+    display: none; // Hide standalone category dropdown, use the one in search bar instead
 
     @media (max-width: $breakpoint-md) {
-        display: none; // Hide on mobile, shown in search bar
+        display: block; // Show on mobile when search bar category is hidden
     }
 }
 
@@ -161,6 +162,12 @@
     z-index: $z-dropdown;
     overflow: hidden;
     animation: slideDown $transition-base;
+
+    // When inside search bar, adjust positioning
+    .searchCategory & {
+        left: 0;
+        min-width: 200px;
+    }
 }
 
 .categoryOption {
@@ -234,9 +241,10 @@
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0 $spacing-md;
     background: rgba(255, 255, 255, 0.1);
+    position: relative;
 
-    @media (max-width: $breakpoint-sm) {
-        display: none; // Hide category in search bar on very small screens
+    @media (max-width: $breakpoint-md) {
+        display: none; // Hide category in search bar on mobile, show standalone instead
     }
 }
 
