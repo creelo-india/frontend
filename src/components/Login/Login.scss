@@ -6,95 +6,109 @@
   align-items: center;
   justify-content: center;
   height: calc(100vh - 79px);
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background-color: $white;
+  padding: $spacing-lg;
+  box-shadow: $shadow-lg;
+  border-radius: $radius-lg;
   max-width: 400px;
-  margin: 10px auto;
+  margin: $spacing-sm auto;
+  font-family: $font-primary;
 
   h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: $primary-color;
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-lg;
+    color: $primary-blue;
     text-align: center;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
   }
 
   input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid $primary-color;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    padding: $spacing-sm $spacing-md;
+    margin: $spacing-sm 0;
+    border: 1px solid $input-border;
+    border-radius: $radius-md;
+    font-size: $font-size-base;
+    font-family: $font-primary;
+    color: $input-text;
+    background: $input-bg;
+    transition: border-color $transition-base, box-shadow $transition-base;
 
     &:focus {
-      border-color: $primary-color;
+      border-color: $input-border-focus;
       outline: none;
+      box-shadow: 0 0 0 3px rgba(30, 140, 255, 0.1);
     }
   }
 
   button {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background-color: $primary-color;
-    color: $white-color;
+    padding: $spacing-sm $spacing-md;
+    margin-top: $spacing-sm;
+    background-color: $btn-primary-bg;
+    color: $btn-primary-text;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
+    border-radius: $radius-md;
+    font-size: $font-size-lg;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all $transition-base;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: $btn-primary-hover;
       transform: translateY(-2px);
+      box-shadow: $shadow-button;
     }
 
     &:active {
       transform: translateY(0);
+      box-shadow: $shadow-sm;
     }
   }
 
   .input-group {
-    margin-bottom: 20px;
+    margin-bottom: $spacing-lg;
     width: 100%;
 
     label {
       display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
+      margin-bottom: $spacing-xs;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+      color: $text-primary;
+      font-family: $font-primary;
     }
   }
 
   .error-message {
-    color: $red-color;
-    font-size: 0.9rem;
-    margin-top: 5px;
-    text-align: center;
+    color: $error;
+    font-size: $font-size-sm;
+    margin-top: $spacing-xs;
+    font-family: $font-primary;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: $breakpoint-sm) {
   .login-container {
-    padding: 15px;
+    padding: $spacing-md;
     width: 100%;
     box-shadow: none;
     border-radius: 0;
 
     h1 {
-      font-size: 2rem;
+      font-size: $font-size-2xl;
     }
 
     input {
-      padding: 10px;
-      font-size: 0.9rem;
+      padding: $spacing-sm;
+      font-size: $font-size-sm;
     }
 
     button {
-      padding: 10px;
-      font-size: 1rem;
+      padding: $spacing-sm;
+      font-size: $font-size-base;
     }
   }
 }

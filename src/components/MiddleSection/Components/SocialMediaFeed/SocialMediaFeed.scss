@@ -1,43 +1,60 @@
 @import '../../../../variables';
 
 .social-media-feed-section {
-    text-align: center;
-    padding: 40px 20px;
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  max-width: $container-2xl;
+  margin: 0 auto;
 
-    h2 {
-        font-size: 28px;
-        margin-bottom: 30px;
-        color: $primary-color;
+  h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-xl;
+    color: $primary-blue;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+  }
+
+  .social-media-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .social-media-post {
+    background-color: $white;
+    border-radius: $radius-md;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+    transition: transform $transition-base, box-shadow $transition-base;
+    border: 1px solid $border-light;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: $shadow-lg;
+      border-color: $primary-blue;
     }
 
-    .social-media-posts {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+    .post-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform $transition-slow;
     }
 
-    .social-media-post {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        transition: transform 0.3s, box-shadow 0.3s;
-
-        &:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .post-image {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .post-caption {
-            padding: 15px;
-            font-size: 16px;
-            color: #333;
-        }
+    &:hover .post-image {
+      transform: scale(1.05);
     }
+
+    .post-caption {
+      padding: $spacing-md;
+      font-size: $font-size-base;
+      color: $text-primary;
+      font-family: $font-primary;
+      line-height: $line-height-normal;
+    }
+  }
 }

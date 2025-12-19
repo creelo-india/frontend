@@ -1,24 +1,42 @@
+@import '../../variables';
+
 // BannerCarousel.scss
 
 .carousel-item img {
-    height: 500px;
-    object-fit: cover;
+  height: 500px;
+  object-fit: cover;
+
+  @media (max-width: $breakpoint-md) {
+    height: 300px;
   }
-  
-  .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.6); // Semi-transparent background for readability
-    padding: 20px;
-    border-radius: 5px;
+}
+
+.carousel-caption {
+  background-color: $bg-overlay;
+  padding: $spacing-lg;
+  border-radius: $radius-md;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-caption h3 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $white;
+  font-family: $font-heading;
+  margin-bottom: $spacing-sm;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-2xl;
   }
-  
-  .carousel-caption h3 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #fff;
+}
+
+.carousel-caption p {
+  font-size: $font-size-lg;
+  color: $white;
+  font-family: $font-primary;
+  margin: 0;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-base;
   }
-  
-  .carousel-caption p {
-    font-size: 1.2rem;
-    color: #fff;
-  }
-  
+}

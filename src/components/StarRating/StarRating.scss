@@ -1,14 +1,24 @@
+@import '../../variables';
+
 .star-rating {
     display: flex;
-    justify-content: center; // Center the stars
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-xs;
 }
 
 .star {
-    font-size: 20px; // Adjust size as needed
-    color: #ccc; // Default color for unfilled stars
-    margin: 0 2px; // Space between stars
+    font-size: $font-size-lg;
+    color: $rating-inactive;
+    margin: 0;
+    transition: color $transition-base, transform $transition-base;
+    cursor: pointer;
 
     &.filled {
-        color: #f39c12; // Gold color for filled stars
+        color: $rating-active;
+    }
+
+    &:hover {
+        transform: scale(1.1);
     }
 }

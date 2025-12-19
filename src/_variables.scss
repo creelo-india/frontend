@@ -1,15 +1,203 @@
-/* Define variables */
-$primary-color: #008080;
-$secondary-color: #ff6f61;
-$neutral-bg-color: #f7f7f7;
-$link-color: #007bff;
-$link-hover-color: #0056b3;
-$header-footer-bg: #333;
-$text-color: #333;
-$white-color: #fff;
-$red-color: red;
+/* ============================================
+   TROOWE.COM DESIGN SYSTEM - COLOR PALETTE
+   ============================================ */
 
+/* Primary Colors */
+$primary-blue: #1E8CFF; // Trustworthy blue (recommended primary)
+$primary-green: #2A7F4F; // Premium green (alternative primary)
+$primary: $primary-blue; // Default to blue, can switch to green
 
+/* Secondary Color */
+$secondary: #FF7A00; // Orange accent for offers, promotions, CTAs
+
+/* Accent Colors */
+$accent-yellow: #FBDD00; // Ratings, stars, highlights
+$accent-red: #E84545; // Warnings, errors, clearance
+$accent-grey: #6C757D; // Secondary text, disabled states
+
+/* Neutral Palette */
+$white: #FFFFFF;
+$light-grey: #F8F9FA;
+$medium-grey: #E0E0E0;
+$dark: #1A1A1A;
+
+/* Semantic Colors */
+$success: $primary-green; // Success states, trust indicators
+$error: $accent-red; // Error messages, warnings
+$warning: $accent-yellow; // Warning states
+$info: $primary-blue; // Informational messages
+
+/* Text Colors */
+$text-primary: $dark;
+$text-secondary: $accent-grey;
+$text-inverse: $white;
+$text-link: $primary-blue;
+$text-link-hover: darken($primary-blue, 10%);
+
+/* Background Colors */
+$bg-primary: $white;
+$bg-secondary: $light-grey;
+$bg-dark: $dark;
+$bg-overlay: rgba(0, 0, 0, 0.5);
+
+/* Border Colors */
+$border-light: $medium-grey;
+$border-medium: darken($medium-grey, 10%);
+$border-dark: darken($medium-grey, 20%);
+
+/* Button Colors */
+$btn-primary-bg: $primary-blue;
+$btn-primary-hover: darken($primary-blue, 10%);
+$btn-primary-text: $white;
+
+$btn-secondary-bg: transparent;
+$btn-secondary-border: $primary-blue;
+$btn-secondary-text: $primary-blue;
+$btn-secondary-hover-bg: $primary-blue;
+$btn-secondary-hover-text: $white;
+
+$btn-cta-bg: $secondary;
+$btn-cta-hover: darken($secondary, 10%);
+$btn-cta-text: $white;
+
+$btn-ghost-bg: transparent;
+$btn-ghost-border: $border-light;
+$btn-ghost-text: $text-primary;
+$btn-ghost-hover-bg: $light-grey;
+
+/* Product Card Colors */
+$card-bg: $white;
+$card-border: $border-light;
+$card-border-hover: $primary-blue;
+$card-shadow: rgba(0, 0, 0, 0.08);
+$card-shadow-hover: rgba(0, 0, 0, 0.12);
+
+/* Price Colors */
+$price-current: $text-primary;
+$price-original: $text-secondary;
+$price-sale: $secondary;
+
+/* Badge Colors */
+$badge-sale-bg: $secondary;
+$badge-sale-text: $white;
+$badge-new-bg: $primary-blue;
+$badge-new-text: $white;
+$badge-out-bg: $accent-red;
+$badge-out-text: $white;
+
+/* Rating Colors */
+$rating-active: $accent-yellow;
+$rating-inactive: $border-light;
+
+/* Navigation Colors */
+$nav-bg: $dark;
+$nav-text: $white;
+$nav-active-bg: $white;
+$nav-active-text: $dark;
+$nav-hover: $primary-blue;
+
+$mega-menu-bg: $white;
+$mega-menu-border: $border-light;
+$mega-menu-shadow: rgba(0, 0, 0, 0.12);
+
+/* Form Colors */
+$input-border: $border-light;
+$input-border-focus: $primary-blue;
+$input-border-error: $accent-red;
+$input-bg: $white;
+$input-text: $text-primary;
+
+/* Typography */
+$font-primary: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$font-heading: 'Poppins', 'Inter', sans-serif;
 $font-lato: 'Lato', sans-serif;
 $font-raleway: 'Raleway', sans-serif;
 $font-oswald: 'Oswald', sans-serif;
+
+/* Font Sizes */
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.25rem; // 20px
+$font-size-xl: 1.5rem; // 24px
+$font-size-2xl: 2rem; // 32px
+$font-size-3xl: 2.5rem; // 40px
+
+/* Font Weights */
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+/* Line Heights */
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+/* Spacing System (8px base unit) */
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 3rem; // 48px
+$spacing-3xl: 4rem; // 64px
+
+/* Border Radius */
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-full: 9999px;
+
+/* Shadows */
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.16);
+$shadow-button: 0 4px 12px rgba(30, 140, 255, 0.3);
+
+/* Transitions */
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.3s ease;
+
+/* Z-Index Scale */
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+
+/* Breakpoints */
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1440px;
+
+/* Container Max Widths */
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+$container-2xl: 1280px;
+
+/* Grid Gaps */
+$grid-gap-sm: $spacing-sm;
+$grid-gap-md: $spacing-md;
+$grid-gap-lg: $spacing-lg;
+
+/* Legacy Variables (for backward compatibility) */
+$primary-color: $primary-blue;
+$secondary-color: $secondary;
+$neutral-bg-color: $light-grey;
+$link-color: $text-link;
+$link-hover-color: $text-link-hover;
+$header-footer-bg: $dark;
+$text-color: $text-primary;
+$white-color: $white;
+$red-color: $accent-red;

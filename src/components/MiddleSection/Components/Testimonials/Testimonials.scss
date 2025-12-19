@@ -1,50 +1,64 @@
 @import '../../../../variables';
 
 .testimonials-section {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: #f9f9f9; // Light background color
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  background-color: $bg-secondary;
 
-    h2 {
-        font-size: 28px;
-        margin-bottom: 30px;
-        color: $primary-color; // Use your primary color
+  h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-xl;
+    color: $primary-blue;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+  }
+
+  .testimonials-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+    max-width: $container-2xl;
+    margin: 0 auto;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .testimonial-card {
+    background-color: $white;
+    border-radius: $radius-md;
+    box-shadow: $shadow-md;
+    padding: $spacing-lg;
+    transition: transform $transition-base, box-shadow $transition-base;
+    border: 1px solid $border-light;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: $shadow-lg;
+      border-color: $primary-blue;
     }
 
-    .testimonials-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-
-        .testimonial-card {
-            background-color: #fff; // White background
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s;
-
-            .testimonial-feedback {
-                font-size: 16px;
-                margin-bottom: 10px;
-                font-style: italic;
-                color: #666; // Dark gray for feedback
-            }
-
-            .testimonial-name {
-                font-size: 16px;
-                margin-bottom: 5px;
-                font-weight: bold;
-                color: #333; // Dark color for name
-            }
-
-            .testimonial-rating {
-                font-size: 18px;
-                color: gold; // Color for stars
-            }
-
-            &:hover {
-                transform: scale(1.03);
-            }
-        }
+    .testimonial-feedback {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-sm;
+      font-style: italic;
+      color: $text-secondary;
+      font-family: $font-primary;
+      line-height: $line-height-relaxed;
     }
+
+    .testimonial-name {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-xs;
+      font-weight: $font-weight-bold;
+      color: $text-primary;
+      font-family: $font-heading;
+    }
+
+    .testimonial-rating {
+      font-size: $font-size-lg;
+      color: $rating-active;
+    }
+  }
 }

@@ -4,22 +4,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: $primary-color;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: $spacing-sm $spacing-lg;
+  background-color: $primary-blue;
+  box-shadow: $shadow-md;
   position: relative;
-  gap: 10px;
+  gap: $spacing-sm;
 }
 
 a.brand-logo {
-  font-size: 24px;
-  color: $white-color;
-  font-weight: 700;
-  transition: 0.3s;
+  font-size: $font-size-xl;
+  color: $white;
+  font-weight: $font-weight-bold;
+  transition: $transition-base;
   font-family: $font-oswald;
 
   &:hover {
-    color: $white-color;
+    color: $white;
     transform: translateY(-2px);
   }
 }
@@ -29,28 +29,42 @@ a.brand-logo {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 0 20px;
+  margin: 0 $spacing-lg;
 
   input {
     width: 100%;
-    padding: 8px;
-    padding-left: 25px;
-    border: 1px solid $primary-color;
-    border-radius: 0.5rem;
+    padding: $spacing-sm;
+    padding-left: $spacing-xl;
+    border: 1px solid $primary-blue;
+    border-radius: $radius-md;
     z-index: 1;
+    font-family: $font-primary;
+    font-size: $font-size-base;
+    transition: border-color $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-blue;
+      box-shadow: 0 0 0 3px rgba(30, 140, 255, 0.1);
+    }
   }
 
   button {
     padding: 0;
     background-color: transparent;
-    color: $primary-color;
+    color: $primary-blue;
     border: none;
     cursor: pointer;
     position: absolute;
     left: 7px;
     top: 28%;
-    font-size: 1rem;
+    font-size: $font-size-base;
     z-index: 2;
+    transition: color $transition-base;
+
+    &:hover {
+      color: $btn-primary-hover;
+    }
   }
 
   .suggestion-box {
@@ -61,37 +75,45 @@ a.brand-logo {
     top: 100%;
     left: 0;
     width: 100%;
-    border: 1px solid $primary-color;
-    border-radius: 4px;
-    background-color: $white-color;
-    z-index: 10;
+    border: 1px solid $primary-blue;
+    border-radius: $radius-sm;
+    background-color: $white;
+    z-index: $z-dropdown;
     max-height: 200px;
     overflow-y: auto;
+    box-shadow: $shadow-lg;
 
     li {
-      padding: 8px;
+      padding: $spacing-sm;
       cursor: pointer;
+      transition: background-color $transition-base;
+      font-family: $font-primary;
+      font-size: $font-size-sm;
+      color: $text-primary;
 
       &:hover {
-        background-color: #f0f0f0;
+        background-color: $light-grey;
+        color: $primary-blue;
       }
     }
   }
 }
 
 .login-button button {
-  padding: 8px 16px;
-  border: 1px solid $white-color;
-  color: $white-color;
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $white;
+  color: $white;
   background: transparent;
-  border-radius: 4px;
+  border-radius: $radius-sm;
   cursor: pointer;
-  margin-right: 15px;
-  font-weight: 600;
+  margin-right: $spacing-md;
+  font-weight: $font-weight-semibold;
+  font-family: $font-primary;
+  transition: all $transition-base;
 
   &:hover {
-    background: $white-color;
-    color: $primary-color;
+    background: $white;
+    color: $primary-blue;
   }
 }
 
@@ -99,72 +121,84 @@ a.brand-logo {
   display: flex;
   align-items: center;
   position: relative;
-  font-size: 30px;
-  color: $white-color;
+  font-size: $font-size-3xl;
+  color: $white;
   cursor: pointer;
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   span {
-    margin-right: 5px;
-    font-size: 11px;
+    margin-right: $spacing-xs;
+    font-size: $font-size-xs;
     position: absolute;
     top: -2px;
     left: 16px;
-    background: $white-color;
-    border: 1px solid;
-    color: $primary-color;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
+    background: $white;
+    border: 1px solid $primary-blue;
+    color: $primary-blue;
+    border-radius: $radius-full;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: $font-weight-bold;
   }
 
   .fa-shopping-cart {
-    font-size: 24px;
+    font-size: $font-size-xl;
     cursor: pointer;
   }
 }
 
-
-
-//  cart csss 
-
-
-
+// Cart details
 .cart-details {
   position: absolute;
   top: 50px;
   right: 10px;
-  background: skyblue;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background: $white;
+  border: 1px solid $border-light;
+  border-radius: $radius-md;
   width: 300px;
-  padding: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
+  padding: $spacing-md;
+  box-shadow: $shadow-lg;
+  z-index: $z-dropdown;
 
-.cart-details h4 {
-  margin: 0 0 10px;
-}
+  h4 {
+    margin: 0 0 $spacing-sm;
+    font-family: $font-heading;
+    font-size: $font-size-lg;
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+  }
 
-.cart-details ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-.cart-details li {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-}
+  li {
+    border-bottom: 1px solid $border-light;
+    padding: $spacing-sm 0;
+    font-family: $font-primary;
+    font-size: $font-size-sm;
+    color: $text-primary;
 
-.cart-details li:last-child {
-  border-bottom: none;
-}
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 
-.cart-details h5 {
-  margin-top: 10px;
-  text-align: right;
+  h5 {
+    margin-top: $spacing-md;
+    text-align: right;
+    font-family: $font-heading;
+    font-size: $font-size-base;
+    color: $text-primary;
+    font-weight: $font-weight-semibold;
+  }
 }

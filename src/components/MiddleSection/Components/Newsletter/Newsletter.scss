@@ -1,60 +1,85 @@
 @import '../../../../variables';
 
 .newsletter-section {
-    background-color: $primary-color;
-    color: $white-color;
-    text-align: center;
-    padding: 40px 20px;
-    border-radius: 8px;
-    margin: 20px 0;
+  background-color: $primary-blue;
+  color: $white;
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  border-radius: $radius-md;
+  margin: $spacing-lg 0;
+  max-width: $container-xl;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: $font-primary;
 
-    h2 {
-        font-size: 28px;
-        margin-bottom: 10px;
+  h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-sm;
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+  }
+
+  p {
+    font-size: $font-size-base;
+    margin-bottom: $spacing-lg;
+    opacity: 0.95;
+  }
+
+  .newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+
+    input {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-size-base;
+      border: none;
+      border-radius: $radius-md;
+      outline: none;
+      width: 300px;
+      font-family: $font-primary;
+      transition: box-shadow $transition-base;
+
+      @media (max-width: $breakpoint-sm) {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      &::placeholder {
+        color: $text-secondary;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
     }
 
-    p {
-        font-size: 16px;
-        margin-bottom: 20px;
+    button {
+      padding: $spacing-sm $spacing-lg;
+      background-color: $white;
+      color: $primary-blue;
+      border: none;
+      border-radius: $radius-md;
+      font-size: $font-size-base;
+      font-family: $font-primary;
+      font-weight: $font-weight-semibold;
+      cursor: pointer;
+      transition: all $transition-base;
+
+      &:hover {
+        background-color: $light-grey;
+        transform: translateY(-1px);
+        box-shadow: $shadow-md;
+      }
     }
+  }
 
-    .newsletter-form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-
-        input {
-            padding: 10px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            width: 300px;
-
-            &::placeholder {
-                color: #999;
-            }
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: $white-color;
-            color: $primary-color;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-
-            &:hover {
-                background-color: lighten($white-color, 10%);
-            }
-        }
-    }
-
-    h3 {
-        font-size: 24px;
-        margin-top: 20px;
-    }
+  h3 {
+    font-size: $font-size-xl;
+    margin-top: $spacing-lg;
+    font-family: $font-heading;
+    font-weight: $font-weight-semibold;
+  }
 }
