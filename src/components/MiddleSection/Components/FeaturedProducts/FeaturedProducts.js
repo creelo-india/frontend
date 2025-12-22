@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./FeaturedProducts.scss";
@@ -6,12 +8,11 @@ import "./FeaturedProducts.scss";
 // import { useSelector } from "react-redux";
 import { productList } from "../../../../redux/productAction";
 import { CONFIG } from "../../../../api/config";
-import { addToCart,emptyCart, removeToCart } from "../../../../redux/action";
+import { addToCart, emptyCart, removeToCart } from "../../../../redux/action";
 
 import { useDispatch, useSelector } from "react-redux";
 
 const FeaturedProducts = () => {
-
   const dispatch = useDispatch();
   let data = useSelector((state) => state.productData);
 
@@ -171,61 +172,57 @@ const FeaturedProducts = () => {
     );
   }
 
-
   const handleAddToCart = (product) => {
-    console.log("handel submit to cart function is called here",product)
+    console.log("handel submit to cart function is called here", product);
     const payload = {
-        product_id: product.id,
-        action: "add",
-        quantity: 1, 
+      product_id: product.id,
+      action: "add",
+      quantity: 1,
     };
 
     dispatch(addToCart(payload));
-};
-
+  };
 
   return (
     <div className="featured-products-section">
-  <h2>Featured Products</h2>
-  <Slider
-    {...settings}
-    onMouseEnter={() => setAutoplay(false)}
-    onMouseLeave={() => setAutoplay(true)}
-  >
-   {data.map((product) => (
-  <div key={product.id} className="featured-product-card">
-    {product.images && product.images[0] && product.images[0].image ? (
-       <img
-    
-        src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, '')}`} 
-        alt={product.name}
-        className="product-image"
-      />
-    ) : (
-      <img
-        src="/path/to/placeholder-image.jpg" // Fallback image if no image
-        alt="No image available"
-        className="product-image"
-      />
-    )}
-    <h3 className="product-name">{product.name}</h3>
-    <p className="product-price">{product.price}</p>
-    <p className="product-description">{product.description}</p>
-    <p className="product-availability">{product.availability}</p>
-    <p className="product-rating">
-      {product.rating} stars ({product.reviews} reviews)
-    </p>
-    <button onClick={() => handleAddToCart(product)}>
-                        Add to Cart
-                    </button>
-  </div>
-))}
-
-
-
-
-  </Slider>
-</div>
+      <h2>Featured Products</h2>
+      <Slider
+        {...settings}
+        onMouseEnter={() => setAutoplay(false)}
+        onMouseLeave={() => setAutoplay(true)}
+      >
+        {data.map((product) => (
+          <div key={product.id} className="featured-product-card">
+            {product.images && product.images[0] && product.images[0].image ? (
+              <img
+                src={`${CONFIG.BASE_URL}${product.images[0].image.replace(
+                  /\/$/,
+                  ""
+                )}`}
+                alt={product.name}
+                className="product-image"
+              />
+            ) : (
+              <img
+                src="/path/to/placeholder-image.jpg" // Fallback image if no image
+                alt="No image available"
+                className="product-image"
+              />
+            )}
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">{product.price}</p>
+            <p className="product-description">{product.description}</p>
+            <p className="product-availability">{product.availability}</p>
+            <p className="product-rating">
+              {product.rating} stars ({product.reviews} reviews)
+            </p>
+            <button onClick={() => handleAddToCart(product)}>
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 

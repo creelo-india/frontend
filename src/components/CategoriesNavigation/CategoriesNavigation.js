@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import "./CategoriesNavigation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "./TopSellingProducts.scss";
@@ -6,13 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { CONFIG } from "../../../../api/config";
 
 const TopSellingProducts = () => {
-
-
   const dispatch = useDispatch();
   let data = useSelector((state) => state.productData);
-  console.log("top selling product is",data)
-  const featuredProducts = data.filter((product) => product.is_featured_product);
-
+  console.log("top selling product is", data);
+  const featuredProducts = data.filter(
+    (product) => product.is_featured_product
+  );
 
   useEffect(() => {
     dispatch(productList());
@@ -92,18 +93,21 @@ const TopSellingProducts = () => {
         {featuredProducts.map((product) => (
           <div key={product.id} className="top-selling-product-card">
             {product.images && product.images[0] && product.images[0].image ? (
-                   <img
-                    src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, '')}`} 
-                    alt={product.name}
-                    className="product-image"
-                  />
-                ) : (
-                  <img
-                    src="/path/to/placeholder-image.jpg" 
-                    alt="No image available"
-                    className="product-image"
-                  />
-                )}
+              <img
+                src={`${CONFIG.BASE_URL}${product.images[0].image.replace(
+                  /\/$/,
+                  ""
+                )}`}
+                alt={product.name}
+                className="product-image"
+              />
+            ) : (
+              <img
+                src="/path/to/placeholder-image.jpg"
+                alt="No image available"
+                className="product-image"
+              />
+            )}
             <h3 className="product-name">{product.name}</h3>
             <p className="product-price">{product.price}</p>
             <button className="add-to-cart-btn">Add to Cart</button>

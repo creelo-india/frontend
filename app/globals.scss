@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&display=swap');
+@import '../src/_variables.scss';
+
+/* Reset some basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  background: $neutral-bg-color;
+
+  @media screen and (max-width: 1366px) {
+    font-size: 14px;
+  }
+}
+
+/* Set default font for the whole application */
+body {
+  margin: 0;
+  font-family: $font-lato;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: $text-color;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $font-raleway;
+}
+
+/* Anchor tags */
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+/* Global container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Button styles */
+button {
+  background-color: $link-color;
+  color: $white-color;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $link-hover-color;
+  }
+}
+
+/* Header styles */
+header {
+  background: $header-footer-bg;
+  color: $white-color;
+  padding: 10px 0;
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    font-size: 2em;
+  }
+}
+
+/* Footer styles */
+footer {
+  background: $header-footer-bg;
+  color: $white-color;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 20px;
+
+  p {
+    margin: 0;
+  }
+}
+
+/* Utility classes */
+.w-100 {
+  width: 100%;
+}
+
+.banner-image img {
+  width: 100%;
+}

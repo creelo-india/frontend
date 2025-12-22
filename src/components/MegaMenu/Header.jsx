@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import TopBar from "../TopBar/TopBar";
 import MainHeader from "../MainHeader/MainHeader";
