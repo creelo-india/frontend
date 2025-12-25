@@ -59,6 +59,19 @@
     }
 }
 
+.logoCircle {
+    fill: $secondary; // #E4944B
+}
+
+.logoPath {
+    fill: $text-light; // #FFFFFF
+    stroke: $text-light; // #FFFFFF
+}
+
+.logoInnerCircle {
+    fill: $secondary; // #E4944B
+}
+
 .brandName {
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
@@ -188,8 +201,8 @@
     }
 
     &.active {
-        background: rgba(30, 140, 255, 0.1);
-        color: $btn-primary-bg;
+        background: rgba(228, 148, 75, 0.1); // rgba of $secondary
+        color: $secondary; // #E4944B
         font-weight: $font-weight-semibold;
     }
 

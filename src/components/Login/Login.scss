@@ -17,7 +17,7 @@
   h1 {
     font-size: $font-size-3xl;
     margin-bottom: $spacing-lg;
-    color: $primary-blue;
+    color: $primary; // #1F242C
     text-align: center;
     font-family: $font-heading;
     font-weight: $font-weight-bold;
@@ -38,7 +38,7 @@
     &:focus {
       border-color: $input-border-focus;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(30, 140, 255, 0.1);
+      box-shadow: 0 0 0 3px rgba(228, 148, 75, 0.1); // rgba of $secondary
     }
   }
 

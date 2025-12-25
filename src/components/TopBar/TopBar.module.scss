@@ -1,8 +1,8 @@
 @import '../../variables';
 
 .topBar {
-    background: $primary-blue;
-    color: $white;
+    background: $primary; // #1F242C
+    color: $text-light; // #FFFFFF
     width: 100%;
     height: 42px;
     display: flex;
@@ -230,13 +230,13 @@
     }
 
     &.active {
-        background: rgba(30, 140, 255, 0.1);
-        color: $primary-blue;
+        background: rgba(228, 148, 75, 0.1); // rgba of $secondary
+        color: $secondary; // #E4944B
         font-weight: $font-weight-semibold;
     }
 
     &:focus-visible {
-        outline: 2px solid $primary-blue;
+        outline: 2px solid $secondary; // #E4944B
         outline-offset: -2px;
     }
 }

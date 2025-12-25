@@ -18,18 +18,21 @@
     display: flex;
     align-items: center;
     gap: $spacing-xs;
-    transition: color $transition-base, background-color $transition-base;
+    transition: color $transition-base,
+        background-color $transition-base,
+        font-weight $transition-base;
     border-radius: $radius-md;
     position: relative;
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
         color: $nav-hover;
-        background: rgba(255, 255, 255, 0.05);
-        outline: none;
+        background: rgba(255, 255, 255, 0.1);
+        font-weight: $font-weight-semibold;
     }
 
     &:focus-visible {
+        color: $nav-hover;
+        background: rgba(255, 255, 255, 0.1);
         outline: 2px solid $primary-blue;
         outline-offset: 2px;
     }
@@ -70,7 +73,8 @@
     .button {
         background: $nav-active-bg;
         color: $nav-active-text;
-        font-weight: $font-weight-semibold;
+        font-weight: $font-weight-bold;
+        box-shadow: $shadow-sm;
 
         &::after {
             content: '';
@@ -83,9 +87,23 @@
             border-radius: $radius-sm $radius-sm 0 0;
         }
 
+        &:hover {
+            background: $nav-active-bg;
+            color: $nav-active-text;
+            font-weight: $font-weight-bold;
+        }
+
+        &:focus-visible {
+            background: $nav-active-bg;
+            color: $nav-active-text;
+            outline: 2px solid $primary-blue;
+            outline-offset: 2px;
+        }
+
         @media (max-width: $breakpoint-md) {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             color: $nav-text;
+            box-shadow: none;
 
             &::after {
                 display: none;

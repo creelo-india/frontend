@@ -68,53 +68,55 @@ const MegaMenu = ({ data = [], isMobileMenuOpen, onRequestClose }) => {
 
       {activeCategory && activeCategory.tabs?.length > 0 && (
         <div className={styles.dropdown} role="region">
-          <div className={styles.tabList} role="tablist">
-            {activeCategory.tabs.map((tab, index) => (
-              <button
-                key={tab.id}
-                className={`${styles.tab} ${
-                  activeTabIndex === index ? styles.activeTab : ""
-                }`}
-                role="tab"
-                aria-selected={activeTabIndex === index}
-                onMouseEnter={() => handleTabChange(index)}
-                onFocus={() => handleTabChange(index)}
-                onClick={() => handleTabChange(index)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {activeTab && (
-            <div className={styles.contentRow} role="tabpanel">
-              <div className={styles.columns}>
-                {activeTab.columns?.map((column, columnIndex) => (
-                  <div className={styles.column} key={columnIndex}>
-                    <h4>
-                      <a href={column.link || "#"}>{column.title}</a>
-                    </h4>
-                    <ul>
-                      {column.items?.map((item, idx) => (
-                        <li key={idx}>
-                          <a href={item.link || "#"}>{item.label}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.promo}>
-                {activeCategory.promoImage && (
-                  <img
-                    src={activeCategory.promoImage}
-                    alt={`${activeCategory.label} promotion`}
-                  />
-                )}
-              </div>
+          <div className={styles.container}>
+            <div className={styles.tabList} role="tablist">
+              {activeCategory.tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  className={`${styles.tab} ${
+                    activeTabIndex === index ? styles.activeTab : ""
+                  }`}
+                  role="tab"
+                  aria-selected={activeTabIndex === index}
+                  onMouseEnter={() => handleTabChange(index)}
+                  onFocus={() => handleTabChange(index)}
+                  onClick={() => handleTabChange(index)}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
-          )}
+
+            {activeTab && (
+              <div className={styles.contentRow} role="tabpanel">
+                <div className={styles.columns}>
+                  {activeTab.columns?.map((column, columnIndex) => (
+                    <div className={styles.column} key={columnIndex}>
+                      <h4>
+                        <a href={column.link || "#"}>{column.title}</a>
+                      </h4>
+                      <ul>
+                        {column.items?.map((item, idx) => (
+                          <li key={idx}>
+                            <a href={item.link || "#"}>{item.label}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                <div className={styles.promo}>
+                  {activeCategory.promoImage && (
+                    <img
+                      src={activeCategory.promoImage}
+                      alt={`${activeCategory.label} promotion`}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </nav>

@@ -10,7 +10,7 @@
 
 html {
   font-size: 16px;
-  background: $neutral-bg-color;
+  background: $background; // #FDFDFC
 
   @media screen and (max-width: 1366px) {
     font-size: 14px;
@@ -56,22 +56,22 @@ a {
 
 /* Button styles */
 button {
-  background-color: $link-color;
-  color: $white-color;
+  background-color: $secondary; // #E4944B
+  color: $text-light; // #FFFFFF
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
 
   &:hover {
-    background-color: $link-hover-color;
+    background-color: darken($secondary, 10%);
   }
 }
 
 /* Header styles */
 header {
-  background: $header-footer-bg;
-  color: $white-color;
+  background: $primary; // #1F242C
+  color: $text-light; // #FFFFFF
   padding: 10px 0;
   text-align: center;
 
@@ -83,8 +83,8 @@ header {
 
 /* Footer styles */
 footer {
-  background: $header-footer-bg;
-  color: $white-color;
+  background: $primary; // #1F242C
+  color: $text-light; // #FFFFFF
   padding: 20px 0;
   text-align: center;
   margin-top: 20px;

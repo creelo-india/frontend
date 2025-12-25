@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: $spacing-sm $spacing-lg;
-  background-color: $primary-blue;
+  background-color: $primary; // #1F242C
   box-shadow: $shadow-md;
   position: relative;
   gap: $spacing-sm;
@@ -35,7 +35,7 @@ a.brand-logo {
     width: 100%;
     padding: $spacing-sm;
     padding-left: $spacing-xl;
-    border: 1px solid $primary-blue;
+    border: 1px solid $border; // #ABACAC
     border-radius: $radius-md;
     z-index: 1;
     font-family: $font-primary;
@@ -44,15 +44,15 @@ a.brand-logo {
 
     &:focus {
       outline: none;
-      border-color: $primary-blue;
-      box-shadow: 0 0 0 3px rgba(30, 140, 255, 0.1);
+      border-color: $secondary; // #E4944B
+      box-shadow: 0 0 0 3px rgba(228, 148, 75, 0.1); // rgba of $secondary
     }
   }
 
   button {
     padding: 0;
     background-color: transparent;
-    color: $primary-blue;
+    color: $secondary; // #E4944B
     border: none;
     cursor: pointer;
     position: absolute;
