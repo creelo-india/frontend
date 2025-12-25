@@ -5,23 +5,33 @@
     background: $nav-bg;
     display: flex;
     flex-direction: column;
-    box-shadow: $shadow-sm;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0;
 }
 
 .navList {
     list-style: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0 $spacing-lg;
+    max-width: $container-2xl;
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: $spacing-sm;
-    height: 56px;
+    justify-content: flex-start;
+    gap: $spacing-md;
+    height: 52px;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    @media (max-width: $breakpoint-lg) {
+        padding: 0 $spacing-md;
+        gap: $spacing-sm;
     }
 
     @media (max-width: $breakpoint-md) {
@@ -32,6 +42,7 @@
         padding: 0 $spacing-md $spacing-sm;
         height: auto;
         overflow-x: visible;
+        max-width: 100%;
     }
 }
 
@@ -58,6 +69,11 @@
     box-shadow: $mega-menu-shadow;
     z-index: $z-dropdown;
     animation: slideDown $transition-base;
+
+    &:focus-within {
+        box-shadow: $mega-menu-shadow,
+            0 0 0 2px $nav-hover;
+    }
 
     @media (max-width: $breakpoint-md) {
         position: static;
@@ -92,6 +108,12 @@
     border-bottom: 1px solid $border-light;
     overflow-x: auto;
     scrollbar-width: thin;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        padding: $spacing-sm $spacing-md $spacing-md;
+        gap: $spacing-sm;
+    }
 
     @media (max-width: $breakpoint-md) {
         padding: $spacing-sm $spacing-md;
@@ -178,6 +200,12 @@
     gap: $spacing-lg;
     padding: $spacing-md $spacing-lg $spacing-lg;
     align-items: start;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        gap: $spacing-md;
+        padding: $spacing-md $spacing-md $spacing-md;
+    }
 
     @media (max-width: $breakpoint-md) {
         grid-template-columns: 1fr;

@@ -3,26 +3,47 @@
 .mainHeader {
     background: $bg-secondary;
     width: 100%;
-    padding: $spacing-md $spacing-lg;
-    box-shadow: $shadow-sm;
+    padding: $spacing-lg $spacing-lg;
+    box-shadow: $shadow-md;
     font-family: $font-primary;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    @media (max-width: $breakpoint-md) {
+        padding: $spacing-md $spacing-md;
+        min-height: auto;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        padding: $spacing-sm;
+    }
 }
 
 .container {
     max-width: $container-2xl;
     margin: 0 auto;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: $spacing-lg;
+    height: 100%;
 
     @media (max-width: $breakpoint-lg) {
         gap: $spacing-md;
+        padding: 0 $spacing-md;
     }
 
     @media (max-width: $breakpoint-md) {
         flex-wrap: wrap;
         gap: $spacing-sm;
+        padding: 0 $spacing-md;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        padding: 0 $spacing-sm;
     }
 }
 
@@ -32,21 +53,32 @@
     align-items: center;
     gap: $spacing-md;
     flex-shrink: 0;
+    height: 48px;
+    align-self: center;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        gap: $spacing-sm;
+    }
 
     @media (max-width: $breakpoint-md) {
         width: 100%;
         justify-content: space-between;
         order: 1;
+        height: auto;
+        flex-wrap: wrap;
+        gap: $spacing-sm;
     }
 }
 
 .logoIcon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
 
     svg {
         width: 100%;
@@ -54,8 +86,8 @@
     }
 
     @media (max-width: $breakpoint-sm) {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
     }
 }
 
@@ -78,16 +110,24 @@
     color: $text-primary;
     font-family: $font-heading;
     white-space: nowrap;
+    line-height: $line-height-tight;
+    align-self: center;
+    flex-shrink: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        font-size: $font-size-lg;
+    }
 
     @media (max-width: $breakpoint-sm) {
-        font-size: $font-size-lg;
+        font-size: $font-size-base;
+        white-space: normal;
     }
 }
 
 .hamburgerButton {
     width: 40px;
     height: 40px;
-    border-radius: $radius-full;
+    border-radius: $radius-md;
     background: $btn-primary-bg;
     border: none;
     color: $btn-primary-text;
@@ -95,21 +135,31 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all $transition-base;
     flex-shrink: 0;
+    align-self: center;
+    transition: background-color $transition-base,
+        transform $transition-fast,
+        box-shadow $transition-base;
 
     &:hover {
         background: $btn-primary-hover;
         transform: scale(1.05);
     }
 
+    &:active {
+        transform: scale(0.95);
+    }
+
     &:focus-visible {
         outline: 2px solid $btn-primary-bg;
         outline-offset: 2px;
+        background: $btn-primary-hover;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
     }
 
     svg {
-        font-size: $font-size-base;
+        width: 1em;
+        height: 1em;
     }
 
     @media (max-width: $breakpoint-sm) {
@@ -140,8 +190,11 @@
     display: flex;
     align-items: center;
     gap: $spacing-xs;
-    transition: all $transition-base;
+    transition: border-color $transition-base,
+        background-color $transition-base,
+        box-shadow $transition-base;
     white-space: nowrap;
+    min-width: 140px;
 
     &:hover {
         border-color: $btn-primary-bg;
@@ -151,6 +204,8 @@
     &:focus-visible {
         outline: 2px solid $btn-primary-bg;
         outline-offset: 2px;
+        border-color: $btn-primary-bg;
+        box-shadow: 0 0 0 2px rgba(31, 36, 44, 0.1);
     }
 }
 
@@ -176,10 +231,19 @@
     overflow: hidden;
     animation: slideDown $transition-base;
 
+    &:focus-within {
+        box-shadow: $shadow-lg,
+            0 0 0 2px $secondary;
+    }
+
     // When inside search bar, adjust positioning
     .searchCategory & {
         left: 0;
         min-width: 200px;
+    }
+
+    @media (max-width: $breakpoint-md) {
+        min-width: 160px;
     }
 }
 
@@ -194,10 +258,12 @@
     font-size: $font-size-sm;
     text-align: left;
     cursor: pointer;
-    transition: background-color $transition-base;
+    transition: background-color $transition-base,
+        color $transition-base;
 
     &:hover {
         background: $bg-secondary;
+        color: $text-primary;
     }
 
     &.active {
@@ -207,8 +273,9 @@
     }
 
     &:focus-visible {
-        outline: 2px solid $btn-primary-bg;
+        outline: 2px solid $secondary;
         outline-offset: -2px;
+        background: $bg-secondary;
     }
 }
 
@@ -227,34 +294,44 @@
 // Center Section - Search Bar
 .searchSection {
     flex: 1;
-    max-width: 600px;
-    margin: 0 $spacing-lg;
+    max-width: 520px;
+    margin: 0;
+    align-self: center;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        max-width: 450px;
+    }
 
     @media (max-width: $breakpoint-md) {
         width: 100%;
         max-width: 100%;
         margin: 0;
         order: 3;
+        min-width: 0;
     }
 }
 
 .searchBar {
     display: flex;
-    align-items: center;
-    background: $btn-primary-bg;
+    align-items: stretch;
+    background: rgba(31, 36, 44, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: $radius-lg;
     overflow: hidden;
-    box-shadow: $shadow-md;
+    box-shadow: $shadow-sm;
     height: 48px;
 }
 
 .searchCategory {
     display: flex;
     align-items: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
     padding: 0 $spacing-md;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.03);
     position: relative;
+    height: 100%;
+    flex-shrink: 0;
 
     @media (max-width: $breakpoint-md) {
         display: none; // Hide category in search bar on mobile, show standalone instead
@@ -264,24 +341,37 @@
 .searchCategoryButton {
     background: transparent;
     border: none;
-    color: $white;
+    color: $text-primary;
     font-family: $font-primary;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
+    line-height: $line-height-normal;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: $spacing-xs;
-    padding: $spacing-xs 0;
+    padding: 0;
+    height: 100%;
     white-space: nowrap;
+    min-width: 120px;
+    transition: background-color $transition-base,
+        color $transition-base;
 
     &:hover {
-        opacity: 0.9;
+        background: rgba(0, 0, 0, 0.05);
+        color: $text-primary;
     }
 
     &:focus-visible {
-        outline: 2px solid $white;
+        outline: 2px solid $primary-blue;
         outline-offset: -2px;
+        background: rgba(0, 0, 0, 0.05);
+        color: $text-primary;
+    }
+
+    &[aria-expanded="true"] {
+        background: rgba(0, 0, 0, 0.08);
+        color: $text-primary;
     }
 }
 
@@ -294,46 +384,78 @@
     padding: $spacing-sm $spacing-md;
     border: none;
     background: transparent;
-    color: $white;
+    color: $text-primary;
     font-family: $font-primary;
     font-size: $font-size-base;
+    line-height: $line-height-normal;
     outline: none;
     height: 100%;
+    min-width: 0;
+    transition: background-color $transition-base,
+        box-shadow $transition-base;
 
     &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: $text-secondary;
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    &:focus {
+        background: rgba(0, 0, 0, 0.03);
+        box-shadow: inset 0 0 0 2px rgba(31, 36, 44, 0.15);
+    }
+
+    &:focus-visible {
+        background: rgba(0, 0, 0, 0.03);
+        box-shadow: inset 0 0 0 2px $primary-blue,
+            0 0 0 2px rgba(31, 36, 44, 0.1);
+        outline: none;
     }
 
     @media (max-width: $breakpoint-sm) {
         font-size: $font-size-sm;
         padding: $spacing-xs $spacing-sm;
+        min-width: 120px;
     }
 }
 
 .searchButton {
     width: 48px;
     height: 48px;
-    background: $btn-cta-bg;
+    background: $secondary;
     border: none;
     color: $btn-cta-text;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all $transition-base;
+    transition: background-color $transition-base,
+        transform $transition-fast,
+        box-shadow $transition-base;
     flex-shrink: 0;
 
     &:hover {
         background: $btn-cta-hover;
+        transform: scale(1.02);
+    }
+
+    &:active {
+        transform: scale(0.98);
     }
 
     &:focus-visible {
-        outline: 2px solid $white;
+        outline: 3px solid $secondary;
         outline-offset: -2px;
+        background: $btn-cta-hover;
+        box-shadow: 0 0 0 2px rgba(228, 148, 75, 0.2);
     }
 
     svg {
         font-size: $font-size-base;
+        width: 1em;
+        height: 1em;
     }
 }
 
@@ -343,55 +465,92 @@
     align-items: center;
     gap: $spacing-lg;
     flex-shrink: 0;
+    height: 48px;
+    align-self: center;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-lg) {
+        gap: $spacing-md;
+    }
 
     @media (max-width: $breakpoint-md) {
         width: 100%;
         justify-content: space-between;
         order: 2;
         gap: $spacing-md;
+        height: auto;
+        flex-wrap: wrap;
     }
 
     @media (max-width: $breakpoint-sm) {
         flex-direction: column;
         align-items: flex-start;
         gap: $spacing-sm;
+        width: 100%;
     }
 }
 
 .contactInfo {
     display: flex;
     align-items: center;
-    gap: $spacing-sm;
+    gap: $spacing-md;
+    flex-shrink: 0;
+    min-width: 0;
+
+    @media (max-width: $breakpoint-md) {
+        flex-shrink: 1;
+        min-width: 0;
+        gap: $spacing-sm;
+    }
 
     @media (max-width: $breakpoint-sm) {
         flex-direction: column;
         align-items: flex-start;
         gap: $spacing-xs;
+        width: 100%;
     }
 }
 
 .phoneIcon {
     width: 40px;
     height: 40px;
-    border-radius: $radius-full;
+    border-radius: $radius-md;
     background: $btn-primary-bg;
     color: $btn-primary-text;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    align-self: center;
+    cursor: pointer;
+    transition: background-color $transition-base,
+        transform $transition-fast,
+        box-shadow $transition-base;
+
+    &:hover {
+        background: $btn-primary-hover;
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &:focus-visible {
+        outline: 2px solid $btn-primary-bg;
+        outline-offset: 2px;
+        background: $btn-primary-hover;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
 
     svg {
-        font-size: $font-size-base;
+        width: 1em;
+        height: 1em;
     }
 
     @media (max-width: $breakpoint-sm) {
         width: 36px;
         height: 36px;
-
-        svg {
-            font-size: $font-size-sm;
-        }
     }
 }
 
@@ -404,12 +563,12 @@
 .contactTitle {
     font-size: $font-size-xs;
     color: $text-primary;
-    font-weight: $font-weight-medium;
+    font-weight: $font-weight-normal;
     line-height: $line-height-tight;
 }
 
 .phoneNumber {
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
     color: $text-primary;
     font-weight: $font-weight-semibold;
     line-height: $line-height-tight;
@@ -419,28 +578,46 @@
     padding: $spacing-sm $spacing-lg;
     background: $btn-cta-bg;
     border: none;
-    border-radius: $radius-lg;
+    border-radius: $radius-md;
     color: $btn-cta-text;
     font-family: $font-primary;
     font-size: $font-size-base;
     font-weight: $font-weight-bold;
+    line-height: $line-height-normal;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: $spacing-xs;
-    transition: all $transition-base;
+    transition: background-color $transition-base,
+        transform $transition-fast,
+        box-shadow $transition-base;
     white-space: nowrap;
     box-shadow: $shadow-sm;
+    height: 48px;
+    align-self: center;
+    flex-shrink: 0;
 
     &:hover {
         background: $btn-cta-hover;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
         box-shadow: $shadow-button;
     }
 
+    &:active {
+        transform: translateY(0);
+        box-shadow: $shadow-sm;
+    }
+
     &:focus-visible {
-        outline: 2px solid $btn-cta-bg;
+        outline: 3px solid $btn-cta-bg;
         outline-offset: 2px;
+        background: $btn-cta-hover;
+        box-shadow: $shadow-button;
+    }
+
+    @media (max-width: $breakpoint-md) {
+        flex-shrink: 1;
+        min-width: 120px;
     }
 
     @media (max-width: $breakpoint-sm) {
@@ -448,11 +625,16 @@
         font-size: $font-size-sm;
         width: 100%;
         justify-content: center;
+        height: auto;
+        min-width: 0;
     }
 }
 
 .buyNowIcon {
     font-size: $font-size-base;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
 }
 
 // Mobile Responsive Adjustments
@@ -463,6 +645,17 @@
 
     .container {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .leftSection {
+        flex-wrap: nowrap;
+        overflow: visible;
+    }
+
+    .searchBar {
+        width: 100%;
+        min-width: 0;
     }
 }
 
@@ -478,5 +671,13 @@
     .searchButton {
         width: 44px;
         height: 44px;
+    }
+
+    .leftSection {
+        gap: $spacing-xs;
+    }
+
+    .brandName {
+        font-size: $font-size-sm;
     }
 }
