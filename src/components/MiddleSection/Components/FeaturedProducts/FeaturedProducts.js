@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./FeaturedProducts.scss";
 
 // import { productList } from "./redux/productAction";
@@ -14,100 +16,29 @@ import { useDispatch, useSelector } from "react-redux";
 
 const FeaturedProducts = () => {
   const dispatch = useDispatch();
-  let data = useSelector((state) => state.productData);
+  const data = useSelector((state) => state.productData);
 
   useEffect(() => {
     dispatch(productList());
-  }, []);
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Stylish Bathroom Faucet",
-      price: "$199.99",
-      description: "A modern faucet designed to enhance any bathroom.",
-      availability: "In Stock",
-      rating: 4.5,
-      reviews: 120,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Stylish+Bathroom+Faucet",
-    },
-    {
-      id: 2,
-      name: "Modern Kitchen Sink",
-      price: "$299.99",
-      description: "A sleek kitchen sink with a modern design.",
-      availability: "In Stock",
-      rating: 4.2,
-      reviews: 98,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Modern+Kitchen+Sink",
-    },
-    {
-      id: 3,
-      name: "Luxury Shower Head",
-      price: "$129.99",
-      description:
-        "Enjoy a spa-like shower experience with this luxury shower head.",
-      availability: "In Stock",
-      rating: 4.7,
-      reviews: 140,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Luxury+Shower+Head",
-    },
-    {
-      id: 4,
-      name: "Elegant Bathtub",
-      price: "$599.99",
-      description: "A freestanding bathtub that adds elegance to any bathroom.",
-      availability: "Limited Stock",
-      rating: 4.8,
-      reviews: 75,
-      imageUrl: "https://via.placeholder.com/300x300.png?text=Elegant+Bathtub",
-    },
-    {
-      id: 5,
-      name: "Ceramic Toilet",
-      price: "$349.99",
-      description: "A water-saving, high-quality ceramic toilet.",
-      availability: "In Stock",
-      rating: 4.3,
-      reviews: 85,
-      imageUrl: "https://via.placeholder.com/300x300.png?text=Ceramic+Toilet",
-    },
-    {
-      id: 6,
-      name: "Classic Bathroom Mirror",
-      price: "$79.99",
-      description: "A classic mirror that complements any bathroom decor.",
-      availability: "In Stock",
-      rating: 4.1,
-      reviews: 65,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Classic+Bathroom+Mirror",
-    },
-    {
-      id: 7,
-      name: "Eco-Friendly Toilet",
-      price: "$349.99",
-      description: "A sustainable toilet designed for eco-conscious consumers.",
-      availability: "In Stock",
-      rating: 4.6,
-      reviews: 100,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Eco-Friendly+Toilet",
-    },
-    {
-      id: 8,
-      name: "Designer Shower Curtain",
-      price: "$39.99",
-      description: "A stylish shower curtain with unique patterns.",
-      availability: "In Stock",
-      rating: 4.2,
-      reviews: 112,
-      imageUrl:
-        "https://via.placeholder.com/300x300.png?text=Designer+Shower+Curtain",
-    },
-  ];
+  }, [dispatch]);
+
+  // Initialize displayProducts safely with fallback to empty array
+  // Generate placeholder products for empty state
+  const placeholderProducts = Array.from({ length: 5 }, (_, index) => ({
+    id: `placeholder-${index}`,
+    isPlaceholder: true,
+  }));
+
+  // Determine if we should show placeholders
+  const isPlaceholderMode = (!data || !Array.isArray(data) || data.length === 0);
+  
+  // Initialize displayProducts with either real data or placeholders, fallback to empty array
+  const displayProducts = isPlaceholderMode 
+    ? placeholderProducts 
+    : (Array.isArray(data) ? data : []);
+
+  // Safely calculate product count
+  const productCount = Array.isArray(displayProducts) ? displayProducts.length : 0;
 
   const [autoplay, setAutoplay] = useState(true);
   const [autoplaySpeed] = useState(3000);
@@ -122,53 +53,76 @@ const FeaturedProducts = () => {
     return () => clearInterval(timer);
   }, [autoplay, autoplaySpeed]);
 
+  // Carousel configuration
+  const slidesToShow = 5;
+  const hasEnoughItems = productCount > slidesToShow && !isPlaceholderMode;
+
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: hasEnoughItems,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: Math.min(slidesToShow, productCount),
     slidesToScroll: 1,
-    autoplay: autoplay,
+    autoplay: autoplay && hasEnoughItems,
     autoplaySpeed: autoplaySpeed,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: Math.min(4, productCount),
+          infinite: productCount > 4 && !isPlaceholderMode,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: Math.min(3, productCount),
+          infinite: productCount > 3 && !isPlaceholderMode,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: Math.min(2, productCount),
+          infinite: productCount > 2 && !isPlaceholderMode,
         },
       },
     ],
-    prevArrow: <SamplePrevArrow />,
-    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow isPlaceholder={isPlaceholderMode} />,
+    nextArrow: <SampleNextArrow isPlaceholder={isPlaceholderMode} />,
   };
 
   function SamplePrevArrow(props) {
-    const { onClick } = props;
+    const { onClick, className, style, isPlaceholder } = props;
     return (
-      <div className="arrow left-arrow" onClick={onClick}>
+      <button
+        type="button"
+        className={`arrow left-arrow ${isPlaceholder ? 'placeholder-arrow' : ''} ${className || ''}`}
+        onClick={onClick}
+        style={style}
+        aria-label="Previous products"
+        disabled={isPlaceholder || !onClick}
+        aria-hidden={isPlaceholder}
+      >
         &#10094;
-      </div>
+      </button>
     );
   }
 
   function SampleNextArrow(props) {
-    const { onClick } = props;
+    const { onClick, className, style, isPlaceholder } = props;
     return (
-      <div className="arrow right-arrow" onClick={onClick}>
+      <button
+        type="button"
+        className={`arrow right-arrow ${isPlaceholder ? 'placeholder-arrow' : ''} ${className || ''}`}
+        onClick={onClick}
+        style={style}
+        aria-label="Next products"
+        disabled={isPlaceholder || !onClick}
+        aria-hidden={isPlaceholder}
+      >
         &#10095;
-      </div>
+      </button>
     );
   }
 
@@ -185,43 +139,80 @@ const FeaturedProducts = () => {
 
   return (
     <div className="featured-products-section">
-      <h2>Featured Products</h2>
-      <Slider
-        {...settings}
-        onMouseEnter={() => setAutoplay(false)}
-        onMouseLeave={() => setAutoplay(true)}
-      >
-        {data.map((product) => (
-          <div key={product.id} className="featured-product-card">
-            {product.images && product.images[0] && product.images[0].image ? (
-              <img
-                src={`${CONFIG.BASE_URL}${product.images[0].image.replace(
-                  /\/$/,
-                  ""
-                )}`}
-                alt={product.name}
-                className="product-image"
-              />
-            ) : (
-              <img
-                src="/path/to/placeholder-image.jpg" // Fallback image if no image
-                alt="No image available"
-                className="product-image"
-              />
-            )}
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">{product.price}</p>
-            <p className="product-description">{product.description}</p>
-            <p className="product-availability">{product.availability}</p>
-            <p className="product-rating">
-              {product.rating} stars ({product.reviews} reviews)
-            </p>
-            <button onClick={() => handleAddToCart(product)}>
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </Slider>
+      <div className="section-header">
+        <h2>Featured Products</h2>
+      </div>
+      <div className="carousel-container">
+        <Slider
+          {...settings}
+          onMouseEnter={() => setAutoplay(false)}
+          onMouseLeave={() => setAutoplay(true)}
+        >
+          {displayProducts.map((product) => (
+            <div 
+              key={product.id} 
+              className={`featured-product-card ${product.isPlaceholder ? 'placeholder-card' : ''}`}
+              aria-hidden={product.isPlaceholder}
+            >
+              {product.isPlaceholder ? (
+                <>
+                  <div className="product-image-placeholder skeleton-image" aria-hidden="true">
+                    <span className="placeholder-icon">📦</span>
+                  </div>
+                  <div className="product-name-placeholder skeleton-text" aria-hidden="true"></div>
+                  <div className="product-price-placeholder skeleton-text skeleton-text-short" aria-hidden="true"></div>
+                  <div className="product-description-placeholder skeleton-text skeleton-text-medium" aria-hidden="true"></div>
+                  <button className="add-to-cart-btn placeholder-button" disabled aria-hidden="true">
+                    Add to Cart
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* Product Image with placeholder fallback */}
+                  {product.images && product.images[0] && product.images[0].image ? (
+                    <img
+                      src={`${CONFIG.BASE_URL}${product.images[0].image.replace(
+                        /\/$/,
+                        ""
+                      )}`}
+                      alt={product.name || 'Product'}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div className="product-image-placeholder" aria-hidden="true">
+                      <span className="placeholder-icon">📦</span>
+                    </div>
+                  )}
+                  
+                  {/* Product Name */}
+                  <h3 className="product-name">{product.name || 'Product Name'}</h3>
+                  
+                  {/* Product Price */}
+                  <p className="product-price">{product.price || '$0.00'}</p>
+                  
+                  {/* Optional: Description, Availability, Rating */}
+                  {product.description && (
+                    <p className="product-description">{product.description}</p>
+                  )}
+                  {product.availability && (
+                    <p className="product-availability">{product.availability}</p>
+                  )}
+                  {product.rating && (
+                    <p className="product-rating">
+                      {product.rating} stars ({product.reviews || 0} reviews)
+                    </p>
+                  )}
+                  
+                  {/* Add to Cart Button */}
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to Cart
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };
