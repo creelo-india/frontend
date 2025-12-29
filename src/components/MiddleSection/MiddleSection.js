@@ -1,5 +1,6 @@
 import React from "react";
 import FeaturedProducts from "./Components/FeaturedProducts/FeaturedProducts";
+import PopularCategories from "./Components/PopularCategories/PopularCategories";
 import Categories from "./Components/Categories/Categories";
 import Promotions from "./Components/Promotions/Promotions";
 import CustomerReviews from "./Components/CustomerReviews/CustomerReviews";
@@ -19,6 +20,11 @@ const MiddleSection = () => {
       <section className="featured-products">
         {/* <h2>Featured Products</h2> */}
         <FeaturedProducts />
+      </section>
+
+      {/* Popular Categories Section */}
+      <section className="popular-categories">
+        <PopularCategories />
       </section>
 
       {/* Categories Section */}
