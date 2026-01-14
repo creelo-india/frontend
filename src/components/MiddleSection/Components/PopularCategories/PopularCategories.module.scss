@@ -2,9 +2,14 @@
 
 .popularCategories {
   width: 100%;
+  max-width: 100%;
   padding: $spacing-2xl $spacing-lg;
   background: $bg-primary;
   margin: 0 auto;
+  // Prevent horizontal scroll while allowing vertical overflow
+  overflow-x: hidden;
+  overflow-y: visible;
+  position: relative;
 
   @media (max-width: $breakpoint-md) {
     padding: $spacing-xl $spacing-md;
@@ -22,15 +27,20 @@
 }
 
 .sectionHeader {
-  text-align: center;
-  margin-bottom: $spacing-2xl;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-xl;
 
   @media (max-width: $breakpoint-md) {
-    margin-bottom: $spacing-xl;
+    margin-bottom: $spacing-lg;
   }
 
   @media (max-width: $breakpoint-sm) {
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-md;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
   }
 }
 
@@ -39,7 +49,7 @@
   font-weight: $font-weight-bold;
   color: $text-primary;
   font-family: $font-heading;
-  margin: 0 0 $spacing-sm 0;
+  margin: 0;
   line-height: $line-height-tight;
 
   @media (max-width: $breakpoint-md) {
@@ -51,152 +61,265 @@
   }
 }
 
-.subtitle {
+.viewAllLink {
   font-size: $font-size-base;
-  color: $text-secondary;
+  color: $secondary;
   font-family: $font-primary;
-  margin: 0;
-  font-weight: $font-weight-normal;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  transition: color $transition-base;
+
+  &:hover,
+  &:focus-visible {
+    color: darken($secondary, 10%);
+    text-decoration: underline;
+    outline: none;
+  }
 
   @media (max-width: $breakpoint-sm) {
     font-size: $font-size-sm;
+    align-self: flex-end;
   }
 }
 
-// Desktop Grid Layout
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: $spacing-lg;
-  width: 100%;
-
-  @media (min-width: $breakpoint-xl) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media (max-width: $breakpoint-lg) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-md;
-  }
-
-  @media (max-width: $breakpoint-md) {
-    display: none; // Hide grid on tablet/mobile, show carousel instead
-  }
-}
-
-// Mobile/Tablet Carousel Layout
+// Horizontal Carousel Layout - visible on all screen sizes
 .carouselContainer {
-  display: none; // Hidden on desktop
+  width: 100%;
+  // Equal left and right padding for balanced spacing
+  padding: 0 $spacing-xl;
+  position: relative;
+  // Allow overflow for carousel arrows positioned outside
+  overflow: visible;
 
   @media (max-width: $breakpoint-md) {
-    display: block;
-    width: 100%;
-    padding: 0 $spacing-md;
+    padding: 0 $spacing-lg;
   }
 
   @media (max-width: $breakpoint-sm) {
-    padding: 0 $spacing-sm;
+    padding: 0 $spacing-md;
   }
 
   // Override slick-carousel default styles
   :global(.slick-slider) {
     position: relative;
+    // Prevent clipping of hover effects and shadows
+    overflow: visible;
   }
 
   :global(.slick-list) {
-    margin: 0 (-$spacing-sm);
-    padding: $spacing-sm 0;
+    // Consistent negative margin for proper spacing between items
+    margin: 0 (-$spacing-md);
+    // Vertical padding for hover effects, equal horizontal padding for edge spacing
+    // Ensures first and last items are fully visible with balanced spacing
+    padding: $spacing-md $spacing-xl;
+    // Allow overflow for hover transforms
+    overflow: visible;
+
+    @media (max-width: $breakpoint-lg) {
+      padding-left: $spacing-xl;
+      padding-right: $spacing-xl;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      padding-top: $spacing-md;
+      padding-bottom: $spacing-md;
+      padding-left: $spacing-lg;
+      padding-right: $spacing-lg;
+    }
 
     @media (max-width: $breakpoint-sm) {
-      margin: 0 (-$spacing-xs);
-      padding: $spacing-xs 0;
+      margin: 0 (-$spacing-sm);
+      padding: $spacing-sm $spacing-md;
     }
   }
 
   :global(.slick-slide) {
-    padding: 0 $spacing-sm;
+    // Consistent horizontal spacing between category items
+    padding: 0 $spacing-md;
+    outline: none;
+    // Prevent slide clipping
+    overflow: visible;
 
     @media (max-width: $breakpoint-sm) {
-      padding: 0 $spacing-xs;
+      padding: 0 $spacing-sm;
+    }
+  }
+
+  // Ensure first and last slides have proper edge spacing (additional to slick-list padding)
+  // This prevents items from appearing cramped near carousel edges
+  :global(.slick-slide:first-child) {
+    padding-left: $spacing-md;
+
+    @media (max-width: $breakpoint-md) {
+      padding-left: $spacing-sm;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding-left: $spacing-xs;
+    }
+  }
+
+  :global(.slick-slide:last-child) {
+    padding-right: $spacing-md;
+
+    @media (max-width: $breakpoint-md) {
+      padding-right: $spacing-sm;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding-right: $spacing-xs;
     }
   }
 
   :global(.slick-slide > div) {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    // Prevent content clipping
+    overflow: visible;
+  }
+
+  // Prevent clipping of hover effects and ensure proper alignment
+  :global(.slick-track) {
+    display: flex;
+    align-items: flex-start;
+    // Ensure track doesn't clip hover effects
+    overflow: visible;
   }
 }
 
 .carouselSlide {
-  padding: 0 $spacing-sm;
+  // Remove duplicate padding (handled by slick-slide)
+  padding: 0;
   outline: none;
+  // Ensure consistent height for alignment
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  // Prevent clipping of hover effects
+  overflow: visible;
+  // Consistent height for label alignment
+  min-height: 200px;
+
+  @media (max-width: $breakpoint-md) {
+    min-height: 180px;
+  }
 
   @media (max-width: $breakpoint-sm) {
-    padding: 0 $spacing-xs;
+    min-height: 160px;
   }
 }
 
-// Category Card Styles
+// Category Card Styles - Circular Design
 .categoryCard {
   display: flex;
   flex-direction: column;
-  background: $white;
-  border-radius: $radius-lg;
-  overflow: hidden;
+  align-items: center;
   text-decoration: none;
   color: inherit;
-  box-shadow: $shadow-md;
-  transition: transform $transition-base,
-    box-shadow $transition-base,
-    background-color $transition-base;
-  height: 100%;
-  min-height: 200px;
   cursor: pointer;
+  // Consistent padding for all cards
+  padding: $spacing-sm;
+  // Ensure consistent width for label alignment
+  width: 100%;
+  max-width: 140px;
+  transition: transform $transition-base;
+  // Prevent overflow clipping of hover effects
+  overflow: visible;
+  // Ensure consistent positioning
   position: relative;
 
   // Hover effects
   &:hover,
   &:focus-visible {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: $shadow-lg;
-    background: $bg-secondary;
+    transform: translateY(-4px);
     outline: none;
   }
 
   &:focus-visible {
-    outline: 3px solid $secondary;
-    outline-offset: 2px;
+    outline: 2px solid $secondary;
+    outline-offset: 4px;
+    border-radius: $radius-md;
   }
 
   &:active {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: $shadow-md;
+    transform: translateY(-2px);
   }
 
-  // Ensure equal height cards
-  @media (min-width: $breakpoint-md) {
-    min-height: 240px;
+  @media (max-width: $breakpoint-md) {
+    max-width: 120px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    max-width: 100px;
+    padding: $spacing-xs;
   }
 }
 
-.cardImageContainer {
-  width: 100%;
-  height: 160px;
+.circularImageContainer {
+  // Consistent circular container size
+  width: 120px;
+  height: 120px;
+  // Perfect circle - using 50% for explicit circular shape
+  border-radius: 50%;
+  // Critical: overflow hidden prevents label from appearing inside circle
   overflow: hidden;
-  background: $bg-secondary;
-  position: relative;
+  // Subtle neutral background - off-white for premium look
+  background: #FAFAF9;
+  // Soft shadow for depth and separation - subtle but visible
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  // Light border for subtle definition - helps light images stand out
+  border: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
+  // Consistent padding/margin - ensures label stays below
+  margin-bottom: $spacing-md;
+  padding: 0;
+  // Ensure consistent positioning and prevent label overlap
+  position: relative;
+  flex-shrink: 0;
+  // Ensure container isolates content from label
+  isolation: isolate;
+  transition: box-shadow $transition-base,
+    transform $transition-base,
+    border-color $transition-base;
 
-  @media (min-width: $breakpoint-md) {
-    height: 180px;
+  .categoryCard:hover & {
+    // Enhanced shadow on hover for premium interaction
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+    transform: scale(1.05);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  @media (max-width: $breakpoint-md) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 80px;
+    height: 80px;
+    margin-bottom: $spacing-sm;
   }
 }
 
-.cardImage {
+.circularImage {
+  // Fill container completely
   width: 100%;
   height: 100%;
+  // Prevent stretching/squashing - cover ensures image fills circle without distortion
   object-fit: cover;
+  // Center images properly within the circle
+  object-position: center;
+  // Ensure images don't overflow and stay within container
+  display: block;
+  // Prevent image from extending beyond container bounds
+  max-width: 100%;
+  max-height: 100%;
+  // Ensure image is contained within circle
+  border-radius: 50%;
   transition: transform $transition-slow;
 
   .categoryCard:hover & {
@@ -204,75 +327,129 @@
   }
 }
 
-.cardPlaceholder {
+.circularPlaceholder {
+  // Match image container dimensions exactly
   width: 100%;
   height: 100%;
+  // Perfect circle to match container
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba($secondary, 0.1) 0%, rgba($secondary, 0.05) 100%);
+  // Subtle gradient background matching container treatment
+  background: linear-gradient(135deg, rgba($secondary, 0.08) 0%, rgba($secondary, 0.04) 100%);
+  // Ensure consistent positioning
+  position: relative;
+  // Prevent any text from appearing inside - only icon should show
+  overflow: hidden;
+  // Ensure placeholder fills container completely
+  flex-shrink: 0;
+  // Reset text properties to prevent any text rendering
+  text-indent: 0;
+  font-size: inherit;
+  // Inherit container's border and shadow treatment for consistency
+  // (Note: border and shadow are on parent container)
 }
 
 .placeholderIcon {
-  font-size: 3rem;
-  opacity: 0.7;
+  font-size: 2.5rem;
+  opacity: 0.8;
   transition: transform $transition-base,
     opacity $transition-base;
+  // Ensure icon is visible and properly centered
+  display: block;
+  line-height: 1;
+  // Prevent any text rendering issues
+  text-rendering: optimizeLegibility;
+  // Ensure only emoji/icon displays, no text
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
 
   .categoryCard:hover & {
-    transform: scale(1.2);
+    transform: scale(1.15);
     opacity: 1;
   }
 
+  @media (max-width: $breakpoint-md) {
+    font-size: 2rem;
+  }
+
   @media (max-width: $breakpoint-sm) {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
   }
 }
 
-.cardContent {
-  padding: $spacing-lg;
+.categoryName {
+  // Ensure labels are evenly aligned below circles
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  // Consistent spacing from image container - prevents overlap with circle
+  margin-top: $spacing-xs;
+  // Prevent text wrapping issues and ensure consistent height
+  min-height: 2.5em;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  background: $white;
-  transition: background-color $transition-base;
+  // Ensure labels align consistently across all items
+  flex-shrink: 0;
+  // Ensure label stays outside image container
+  position: relative;
+  z-index: 1;
 
-  .categoryCard:hover & {
-    background: $bg-secondary;
+  span {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    font-family: $font-primary;
+    line-height: $line-height-normal;
+    transition: color $transition-base;
+    // Ensure text wraps nicely for longer names
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    // Center text alignment
+    text-align: center;
+    // Consistent max width to prevent overflow
+    max-width: 100%;
+    // Ensure consistent display
+    display: block;
+
+    .categoryCard:hover & {
+      color: $secondary;
+    }
   }
-}
 
-.cardTitle {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: $text-primary;
-  font-family: $font-heading;
-  margin: 0;
-  text-align: center;
-  line-height: $line-height-normal;
-  transition: color $transition-base;
-
-  .categoryCard:hover & {
-    color: $secondary;
+  @media (max-width: $breakpoint-md) {
+    min-height: 2.25em;
+    margin-top: $spacing-xs;
   }
 
   @media (max-width: $breakpoint-sm) {
-    font-size: $font-size-base;
+    min-height: 2em;
+    margin-top: 0;
+
+    span {
+      font-size: $font-size-xs;
+      line-height: 1.4;
+    }
   }
 }
 
 // Carousel Arrow Styles
 .carouselArrow {
   position: absolute;
-  top: 50%;
+  // Vertically center arrows relative to category circles
+  // Calculation: slick-list padding-top (16px) + card padding (8px) + half circle height (60px) = 84px
+  top: 84px;
   transform: translateY(-50%);
-  z-index: 10;
-  width: 40px;
-  height: 40px;
+  z-index: 30;
+  width: 44px;
+  height: 44px;
   border-radius: $radius-full;
   background: $white;
-  border: 2px solid $border-light;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   color: $text-primary;
   font-size: $font-size-xl;
   font-weight: $font-weight-bold;
@@ -284,14 +461,20 @@
   transition: all $transition-base;
   padding: 0;
   line-height: 1;
+  // Ensure arrows are always clickable
+  pointer-events: auto;
+  // Prevent arrows from being affected by carousel transforms
+  will-change: transform;
+  // Ensure arrows are visible even when positioned outside
+  visibility: visible;
 
   &:hover,
   &:focus-visible {
-    background: $secondary;
+    background: $white;
     border-color: $secondary;
-    color: $white;
+    color: $secondary;
     box-shadow: $shadow-lg;
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.05);
     outline: none;
   }
 
@@ -300,30 +483,66 @@
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.3;
     cursor: not-allowed;
     pointer-events: none;
   }
 
+  @media (max-width: $breakpoint-md) {
+    // Tablet: slick-list padding-top (16px) + card padding (8px) + half circle height (50px) = 74px
+    top: 74px;
+    width: 40px;
+    height: 40px;
+    font-size: $font-size-lg;
+  }
+
   @media (max-width: $breakpoint-sm) {
+    // Mobile: slick-list padding-top (8px) + card padding (4px) + half circle height (40px) = 52px
+    top: 52px;
     width: 36px;
     height: 36px;
-    font-size: $font-size-lg;
+    font-size: $font-size-base;
   }
 }
 
 .prevArrow {
-  left: -20px;
+  // Position arrow completely outside the category item area on the left
+  // Positioned well outside container to ensure no overlap with first category
+  // Container padding (32px) + additional clearance (20px) = -72px from container edge
+  left: -72px;
+
+  @media (max-width: $breakpoint-lg) {
+    left: -68px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    // Container padding (24px) + additional clearance (16px) = -56px
+    left: -56px;
+  }
 
   @media (max-width: $breakpoint-sm) {
-    left: -10px;
+    // Container padding (16px) + additional clearance (12px) = -44px
+    left: -44px;
   }
 }
 
 .nextArrow {
-  right: -20px;
+  // Position arrow completely outside the category item area on the right
+  // Positioned well outside container to ensure no overlap with last category
+  // Container padding (32px) + additional clearance (20px) = -72px from container edge
+  right: -72px;
+
+  @media (max-width: $breakpoint-lg) {
+    right: -68px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    // Container padding (24px) + additional clearance (16px) = -56px
+    right: -56px;
+  }
 
   @media (max-width: $breakpoint-sm) {
-    right: -10px;
+    // Container padding (16px) + additional clearance (12px) = -44px
+    right: -44px;
   }
 }

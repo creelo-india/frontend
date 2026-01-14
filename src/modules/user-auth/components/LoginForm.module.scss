@@ -1,0 +1,83 @@
+@import "../../../_variables.scss";
+
+.loginForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.label {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+
+.input {
+  padding: $spacing-md;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  color: $input-text;
+  background-color: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  transition: border-color $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+  }
+}
+
+.error {
+  font-size: $font-size-sm;
+  color: $error;
+  margin-top: $spacing-xs;
+}
+
+.errorMessage {
+  padding: $spacing-md;
+  background-color: rgba($error, 0.1);
+  border: 1px solid $error;
+  border-radius: $radius-md;
+  color: $error;
+  font-size: $font-size-sm;
+}
+
+.submitButton {
+  padding: $spacing-md $spacing-lg;
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $btn-cta-text;
+  background-color: $btn-cta-bg;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-base;
+
+  &:hover:not(:disabled) {
+    background-color: $btn-cta-hover;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

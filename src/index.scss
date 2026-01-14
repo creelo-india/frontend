@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&display=swap');
 @import './variables';
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: $font-lato;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {

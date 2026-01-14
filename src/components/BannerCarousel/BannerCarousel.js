@@ -13,6 +13,8 @@ const BannerCarousel = () => {
           className="d-block w-100"
           src="/BannerOne.png"
           alt="First banner"
+          loading="eager"
+          fetchPriority="high"
         />
       </Carousel.Item>
 
@@ -21,6 +23,7 @@ const BannerCarousel = () => {
           className="d-block w-100"
           src="/BannerTwo.jpg"
           alt="Second banner"
+          loading="lazy"
         />
       </Carousel.Item>
 
