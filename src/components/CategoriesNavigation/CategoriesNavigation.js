@@ -1,41 +1,45 @@
 import React, { useState, useEffect } from "react";
 import "./CategoriesNavigation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-// import axiosClient from "../../api/interceptorApi"; 
+import { faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import axiosClient from "../../api/interceptorApi";
 
-// Helper function to convert flat data into a nested structure
+// Helper function to convert flat API data (id, name, slug, level, parentId) into nested structure for UI
 const buildCategoryTree = (categories) => {
-  const categoryMap = {};
+  if (!categories || !Array.isArray(categories)) return [];
 
-  categories.forEach((category) => {
-    category.children = [];
-    categoryMap[category.id] = category;
+  const categoryMap = {};
+  categories.forEach((item) => {
+    categoryMap[item.id] = {
+      id: item.id,
+      name: item.name,
+      link: item.slug ? `/${item.slug}` : "#",
+      children: [],
+    };
   });
 
-  const nestedCategories = [];
-
-  categories.forEach((category) => {
-    if (category.parent) {
-      categoryMap[category.parent.id]?.children.push(category);
+  const rootCategories = [];
+  categories.forEach((item) => {
+    const node = categoryMap[item.id];
+    if (item.parentId == null) {
+      rootCategories.push(node);
     } else {
-      nestedCategories.push(category);
+      const parent = categoryMap[item.parentId];
+      if (parent) parent.children.push(node);
     }
   });
 
-  return nestedCategories;
+  return rootCategories;
 };
 
 const CategoriesNavigation = () => {
   const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [flyoutOpen, setFlyoutOpen] = useState(false);
+  const [hoveredCategoryIndex, setHoveredCategoryIndex] = useState(null);
 
   useEffect(() => {
-    // Use the axiosClient to make API requests
     axiosClient
-      .get("master-config/categories/") 
+      .get("api/categories")
       .then((response) => {
         const structuredCategories = buildCategoryTree(response.data);
         setCategories(structuredCategories);
@@ -45,57 +49,120 @@ const CategoriesNavigation = () => {
       });
   }, []);
 
-  const handleMouseEnterCategory = (index) => setActiveCategory(index);
-  const handleMouseLeave = () => setActiveCategory(null);
+  const handleOpenFlyout = () => setFlyoutOpen(true);
+  const handleCloseFlyout = () => {
+    setFlyoutOpen(false);
+    setHoveredCategoryIndex(null);
+  };
 
-  // Render category and its subcategories recursively (but not the parent category itself)
-  const renderSubcategories = (category) => (
-    <div key={category.id} className="subcategory-item">
-      <p>
-        <a href={category.link || "#"}>{category.name}</a>
-        {category.children.length > 0 && (
-          <FontAwesomeIcon icon={faChevronDown} />
-        )}
-      </p>
-      {category.children.length > 0 && (
-        <div className="nested-subcategories">
-          {category.children.map((child) => renderSubcategories(child))}
-        </div>
+  // Render level 3 and level 4 (nested under level 2)
+  const renderLevel3And4 = (level3Category) => (
+    <li key={level3Category.id} className="mega-menu-level-3">
+      <a href={level3Category.link || "#"}>{level3Category.name}</a>
+      {level3Category.children && level3Category.children.length > 0 && (
+        <ul className="mega-menu-level-4">
+          {level3Category.children.map((level4Category) => (
+            <li key={level4Category.id}>
+              <a href={level4Category.link || "#"}>{level4Category.name}</a>
+            </li>
+          ))}
+        </ul>
       )}
-    </div>
+    </li>
   );
 
-  if (categories.length === 0) return <p>Loading categories...</p>;
+  const renderRightPanel = (category) => {
+    if (!category) return null;
+    return (
+      <div className="flyout-right-content">
+        {category.children && category.children.length > 0 ? (
+          <>
+            <div className="flyout-right-columns">
+              {category.children.map((level2Category) => (
+                <div key={level2Category.id} className="mega-menu-column">
+                  <h3 className="mega-menu-heading">
+                    <a href={level2Category.link || "#"}>{level2Category.name}</a>
+                  </h3>
+                  {level2Category.children && level2Category.children.length > 0 ? (
+                    <ul className="mega-menu-links">
+                      {level2Category.children.map(renderLevel3And4)}
+                    </ul>
+                  ) : (
+                    <ul className="mega-menu-links">
+                      <li>
+                        <a href={level2Category.link || "#"}>{level2Category.name}</a>
+                      </li>
+                    </ul>
+                  )}
+                  <a href={level2Category.link || "#"} className="mega-menu-view-all">
+                    View all in {level2Category.name}
+                  </a>
+                </div>
+              ))}
+            </div>
+            <div className="flyout-right-cta">
+              <a href={category.link || "#"} className="mega-menu-view-all">
+                View All {category.name}
+              </a>
+              <a href={category.link || "#"} className="mega-menu-btn">
+                All {category.name}
+              </a>
+            </div>
+          </>
+        ) : (
+          <div className="flyout-right-cta">
+            <a href={category.link || "#"} className="mega-menu-btn">
+              All {category.name}
+            </a>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  if (categories.length === 0) return <p className="cat-nav-loading">Loading categories...</p>;
 
   return (
-    <section
-      className="cat-nav-container"
-      onMouseLeave={handleMouseLeave}
-    >
-      <ul className="category-list">
-        {categories.map((category, index) => (
-          <li
-            key={category.id}
-            onMouseEnter={() => handleMouseEnterCategory(index)}
-            className="category-item"
-          >
-            <p aria-expanded={activeCategory === index}>
-              {category.name} <FontAwesomeIcon icon={faChevronDown} />
-            </p>
+    <section className="cat-nav-container" onMouseLeave={handleCloseFlyout}>
+      <div className="cat-nav-bar">
+        <button
+          type="button"
+          className="flyout-trigger"
+          onMouseEnter={handleOpenFlyout}
+          aria-expanded={flyoutOpen}
+          aria-haspopup="true"
+        >
+          <FontAwesomeIcon icon={faBars} className="flyout-trigger-icon" />
+          <span>Shop by Department</span>
+          <FontAwesomeIcon icon={faChevronDown} className="flyout-trigger-chevron" />
+        </button>
+      </div>
 
-            {/* Show the dropdown content when category is active */}
-            {activeCategory === index && (
-              <div className="dropdown-content">
-                {category.children.length > 0 && (
-                  <div className="nested-subcategories">
-                    {category.children.map(renderSubcategories)}
-                  </div>
-                )}
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+      {flyoutOpen && (
+        <div className="flyout-panel">
+          <div className="flyout-left">
+            {categories.map((category, index) => (
+              <a
+                key={category.id}
+                href={category.link || "#"}
+                className={`flyout-left-item ${hoveredCategoryIndex === index ? "active" : ""}`}
+                onMouseEnter={() => setHoveredCategoryIndex(index)}
+              >
+                {category.name}
+              </a>
+            ))}
+          </div>
+          <div className="flyout-right">
+            {hoveredCategoryIndex !== null
+              ? renderRightPanel(categories[hoveredCategoryIndex])
+              : (
+                <div className="flyout-right-placeholder">
+                  <p>Hover over a department to view categories</p>
+                </div>
+              )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,133 +1,262 @@
-// .cat-nav-container {
-//     position: relative;
-
-//     ul.category-list {
-//         display: flex;
-//         gap: 20px;
-//         list-style: none;
-//         margin: 0;
-//         padding: 0;
-
-//         li {
-//             cursor: pointer;
-//             position: relative;
-
-//             p {
-//                 margin: 0;
-//                 padding: 10px 15px;
-//                 background: #f8f8f8; // Light background for category
-//                 border-radius: 5px;
-//                 transition: background 0.3s; // Smooth transition on hover
-
-//                 &:hover {
-//                     background: #eaeaea; // Slightly darker on hover
-//                 }
-//             }
-//         }
-//     }
-
-//     .dropdown-content {
-//         position: absolute;
-//         top: 90%;
-//         left: 0;
-//         background-color: #fff;
-//         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-//         padding: 10px;
-//         z-index: 100;
-//         min-width: 200px; // Adjust width as needed
-//         display: flex;
-//         flex-direction: column;
-//         border-radius: 5px; // Rounded corners
-//         margin-top: 5px; // Small gap between categories and dropdown
-
-//         .subcategory-item {
-//             padding: 10px 15px;
-//             transition: background 0.3s; // Smooth transition for background
-
-//             a {
-//                 text-decoration: none;
-//                 color: #333; // Darker text color
-//                 display: block;
-//                 font-weight: bold; // Bold for subcategories
-//             }
-
-//             &:hover {
-//                 background: #f0f0f0; // Light background on hover for subcategories
-//             }
-
-//             .nested-subcategories {
-//                 margin-left: 15px; // Indent nested subcategories
-//                 display: flex;
-//                 flex-direction: column;
-
-//                 .nested-subcategory-item {
-//                     font-size: 0.9rem; // Smaller font for nested items
-//                     color: #555; // Lighter color for nested items
-//                     padding: 5px 0;
-//                     transition: color 0.3s; // Smooth transition for color
-
-//                     &:hover {
-//                         color: red; // Change color on hover
-//                         text-decoration: underline; // Underline on hover for clarity
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
+@import "../../variables";
 
 .cat-nav-container {
-    position: relative;
+  position: relative;
+  background: $header-footer-bg;
+  width: 100%;
+}
+
+.cat-nav-loading {
+  margin: 0;
+  padding: 12px 20px;
+  background: $header-footer-bg;
+  color: $white-color;
+  font-family: $font-lato;
+}
+
+/* Top bar with single flyout trigger (Amazon-style) */
+.cat-nav-bar {
+  display: flex;
+  align-items: center;
+}
+
+.flyout-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: $white-color;
+  font-family: $font-oswald;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $white-color;
   }
-  
-  .category-list {
-    list-style-type: none;
+
+  .flyout-trigger-icon {
+    font-size: 1.1rem;
+  }
+
+  .flyout-trigger-chevron {
+    font-size: 0.7rem;
+    opacity: 0.9;
+  }
+}
+
+/* Flyout panel: left (L1) + right (L2–4) */
+.flyout-panel {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: flex;
+  min-width: 800px;
+  max-width: 1200px;
+  background: $white-color;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  border-top: 2px solid $secondary-color;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+/* Left column: level 1 departments */
+.flyout-left {
+  flex: 0 0 240px;
+  background: $neutral-bg-color;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 0;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.flyout-left-item {
+  display: block;
+  padding: 10px 20px;
+  color: $text-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: $link-color;
+  }
+
+  &.active {
+    background: $white-color;
+    color: $primary-color;
+    border-left-color: $secondary-color;
+    font-weight: 600;
+  }
+}
+
+/* Right panel: level 2, 3, 4 for hovered department */
+.flyout-right {
+  flex: 1;
+  padding: 24px 28px 28px;
+  overflow-y: auto;
+  max-height: 80vh;
+  min-height: 320px;
+}
+
+.flyout-right-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 0.95rem;
+}
+
+.flyout-right-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  align-items: flex-start;
+}
+
+.flyout-right-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  flex: 1;
+  min-width: 0;
+}
+
+.flyout-right-cta {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-width: 180px;
+  margin-left: auto;
+
+  .mega-menu-view-all {
+    margin-bottom: 12px;
+  }
+}
+
+/* Reused mega-menu column styles (level 2, 3, 4) */
+.mega-menu-column {
+  flex: 0 1 auto;
+  min-width: 180px;
+  max-width: 260px;
+
+  .mega-menu-heading {
+    margin: 0 0 12px;
+    font-family: $font-oswald;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    a {
+      color: $header-footer-bg;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .mega-menu-links {
+    list-style: none;
+    margin: 0;
     padding: 0;
+
+    > li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: $link-color;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $link-hover-color;
+        text-decoration: underline;
+      }
+    }
   }
-  
-  .category-item {
-    padding: 10px;
-    cursor: pointer;
-    position: relative;
+
+  .mega-menu-level-3 {
+    margin-bottom: 8px;
+
+    > a {
+      font-weight: 500;
+    }
+  }
+
+  .mega-menu-level-4 {
+    list-style: none;
+    margin: 6px 0 10px 0;
+    padding: 0 0 0 14px;
+    border-left: 2px solid $link-color;
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: $link-color;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $link-hover-color;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .mega-menu-view-all {
     display: inline-block;
-  }
-  
-  .category-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .dropdown-content {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    top: 100%;
-    left: 0;
-    display: none;
-    z-index: 1000;
-  }
-  
-  .subcategory-item {
-    padding: 8px 16px;
-  }
-  
-  .subcategory-item > p {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nested-subcategories {
-    padding-left: 20px;
-  }
-  
-  .category-item:hover .dropdown-content {
-    display: block;
-  }
-  
-  .nested-subcategories .subcategory-item:hover {
-    background-color: #f5f5f5;
-  }
-  
+    margin-top: 14px;
+    color: $link-color;
+    font-size: 0.9rem;
+    font-weight: 500;
 
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+}
 
+.mega-menu-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: $header-footer-bg;
+  color: $white-color;
+  text-align: center;
+  font-family: $font-oswald;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: $primary-color;
+    color: $white-color;
+    text-decoration: none;
+  }
+}
