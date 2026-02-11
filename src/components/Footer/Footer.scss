@@ -1,0 +1,124 @@
+@import '../../variables';
+
+.site-footer {
+  background: $header-footer-bg;
+  color: $white-color;
+  margin-top: 0;
+}
+
+.footer-back-to-top {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  background: rgba(0, 0, 0, 0.25);
+  color: $white-color;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 32px 20px;
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer-col {
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+    font-family: $font-raleway;
+  }
+
+  a {
+    display: block;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+
+    &:hover {
+      color: $white-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $white-color;
+  text-decoration: none;
+  font-family: $font-oswald;
+
+  &:hover {
+    color: $white-color;
+    opacity: 0.9;
+  }
+}
+
+.footer-locale {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.footer-bottom {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 24px;
+  margin-bottom: 10px;
+
+  a {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    text-decoration: none;
+
+    &:hover {
+      color: $white-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}

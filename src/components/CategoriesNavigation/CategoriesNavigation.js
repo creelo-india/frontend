@@ -1,126 +1,134 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./CategoriesNavigation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import axiosClient from "../../api/interceptorApi";
 
-// Helper function to convert flat API data (id, name, slug, level, parentId) into nested structure for UI
+// Slug helper – backend may not send slug, so derive from name
+const slugify = (name) =>
+  (name || "")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+// Helper: build tree from flat { id, name, level, parentId }
 const buildCategoryTree = (categories) => {
   if (!categories || !Array.isArray(categories)) return [];
 
-  const categoryMap = {};
+  const map = {};
   categories.forEach((item) => {
-    categoryMap[item.id] = {
+    const slug = slugify(item.name);
+    map[item.id] = {
       id: item.id,
       name: item.name,
-      link: item.slug ? `/${item.slug}` : "#",
+      level: item.level,
+      parentId: item.parentId,
+      slug,
+      link: slug ? `/category/${slug}` : "#",
       children: [],
     };
   });
 
-  const rootCategories = [];
+  const roots = [];
   categories.forEach((item) => {
-    const node = categoryMap[item.id];
-    if (item.parentId == null) {
-      rootCategories.push(node);
-    } else {
-      const parent = categoryMap[item.parentId];
-      if (parent) parent.children.push(node);
+    const node = map[item.id];
+    if (!item.parentId) {
+      roots.push(node);
+    } else if (map[item.parentId]) {
+      map[item.parentId].children.push(node);
     }
   });
 
-  return rootCategories;
+  return roots;
 };
 
 const CategoriesNavigation = () => {
   const [categories, setCategories] = useState([]);
   const [flyoutOpen, setFlyoutOpen] = useState(false);
-  const [hoveredCategoryIndex, setHoveredCategoryIndex] = useState(null);
+  const [navStack, setNavStack] = useState([]); // [] => level 1
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+    setError(null);
     axiosClient
       .get("api/categories")
       .then((response) => {
-        const structuredCategories = buildCategoryTree(response.data);
-        setCategories(structuredCategories);
+        const payload = response.data;
+        const flat =
+          Array.isArray(payload?.data) && payload.success
+            ? payload.data
+            : Array.isArray(payload)
+            ? payload
+            : [];
+        setCategories(buildCategoryTree(flat));
       })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-      });
+      .catch((err) => {
+        setError(err.response?.data?.message || "Failed to load categories.");
+      })
+      .finally(() => setLoading(false));
   }, []);
+
+  const handleTriggerClick = () => {
+    setFlyoutOpen((prev) => {
+      const next = !prev;
+      if (!next) setNavStack([]);
+      return next;
+    });
+  };
 
   const handleOpenFlyout = () => setFlyoutOpen(true);
   const handleCloseFlyout = () => {
     setFlyoutOpen(false);
-    setHoveredCategoryIndex(null);
+    setNavStack([]);
   };
 
-  // Render level 3 and level 4 (nested under level 2)
-  const renderLevel3And4 = (level3Category) => (
-    <li key={level3Category.id} className="mega-menu-level-3">
-      <a href={level3Category.link || "#"}>{level3Category.name}</a>
-      {level3Category.children && level3Category.children.length > 0 && (
-        <ul className="mega-menu-level-4">
-          {level3Category.children.map((level4Category) => (
-            <li key={level4Category.id}>
-              <a href={level4Category.link || "#"}>{level4Category.name}</a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  );
+  const currentNode = navStack[navStack.length - 1] || null;
+  const currentItems = currentNode ? currentNode.children || [] : categories;
+  const currentTitle = currentNode ? currentNode.name : "Main menu";
 
-  const renderRightPanel = (category) => {
-    if (!category) return null;
+  const handleItemClick = (item) => {
+    if (item.children && item.children.length > 0) {
+      // drill down to next level
+      setNavStack((stack) => [...stack, item]);
+    }
+  };
+
+  const handleBack = () => {
+    setNavStack((stack) => {
+      const next = stack.slice(0, -1);
+      if (next.length === 0) {
+        // back from level 2 -> close panel
+        setFlyoutOpen(false);
+      }
+      return next;
+    });
+  };
+
+  if (loading) return <p className="cat-nav-loading">Loading categories...</p>;
+  if (error) {
     return (
-      <div className="flyout-right-content">
-        {category.children && category.children.length > 0 ? (
-          <>
-            <div className="flyout-right-columns">
-              {category.children.map((level2Category) => (
-                <div key={level2Category.id} className="mega-menu-column">
-                  <h3 className="mega-menu-heading">
-                    <a href={level2Category.link || "#"}>{level2Category.name}</a>
-                  </h3>
-                  {level2Category.children && level2Category.children.length > 0 ? (
-                    <ul className="mega-menu-links">
-                      {level2Category.children.map(renderLevel3And4)}
-                    </ul>
-                  ) : (
-                    <ul className="mega-menu-links">
-                      <li>
-                        <a href={level2Category.link || "#"}>{level2Category.name}</a>
-                      </li>
-                    </ul>
-                  )}
-                  <a href={level2Category.link || "#"} className="mega-menu-view-all">
-                    View all in {level2Category.name}
-                  </a>
-                </div>
-              ))}
-            </div>
-            <div className="flyout-right-cta">
-              <a href={category.link || "#"} className="mega-menu-view-all">
-                View All {category.name}
-              </a>
-              <a href={category.link || "#"} className="mega-menu-btn">
-                All {category.name}
-              </a>
-            </div>
-          </>
-        ) : (
-          <div className="flyout-right-cta">
-            <a href={category.link || "#"} className="mega-menu-btn">
-              All {category.name}
-            </a>
-          </div>
-        )}
-      </div>
+      <section className="cat-nav-container">
+        <div className="cat-nav-bar">
+          <p className="cat-nav-error">
+            {error}
+            <button
+              type="button"
+              className="cat-nav-retry"
+              onClick={() => window.location.reload()}
+            >
+              Retry
+            </button>
+          </p>
+        </div>
+      </section>
     );
-  };
-
-  if (categories.length === 0) return <p className="cat-nav-loading">Loading categories...</p>;
+  }
+  if (categories.length === 0)
+    return <p className="cat-nav-loading">No categories available.</p>;
 
   return (
     <section className="cat-nav-container" onMouseLeave={handleCloseFlyout}>
@@ -129,38 +137,57 @@ const CategoriesNavigation = () => {
           type="button"
           className="flyout-trigger"
           onMouseEnter={handleOpenFlyout}
+          onClick={handleTriggerClick}
           aria-expanded={flyoutOpen}
           aria-haspopup="true"
         >
           <FontAwesomeIcon icon={faBars} className="flyout-trigger-icon" />
           <span>Shop by Department</span>
-          <FontAwesomeIcon icon={faChevronDown} className="flyout-trigger-chevron" />
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className="flyout-trigger-chevron"
+          />
         </button>
       </div>
 
       {flyoutOpen && (
-        <div className="flyout-panel">
-          <div className="flyout-left">
-            {categories.map((category, index) => (
-              <a
-                key={category.id}
-                href={category.link || "#"}
-                className={`flyout-left-item ${hoveredCategoryIndex === index ? "active" : ""}`}
-                onMouseEnter={() => setHoveredCategoryIndex(index)}
+        <div className="cat-drilldown-panel">
+          <div className="cat-drilldown-header">
+            {navStack.length > 0 && (
+              <button
+                type="button"
+                className="cat-drilldown-back"
+                onClick={handleBack}
               >
-                {category.name}
-              </a>
+                ‹
+              </button>
+            )}
+            <span className="cat-drilldown-title">{currentTitle}</span>
+          </div>
+          <ul className="cat-drilldown-list">
+            {currentItems.map((item) => (
+              <li key={item.id}>
+                {item.children && item.children.length > 0 ? (
+                  <button
+                    type="button"
+                    className="cat-drilldown-item"
+                    onClick={() => handleItemClick(item)}
+                  >
+                    <span className="cat-drilldown-name">{item.name}</span>
+                    <span className="cat-drilldown-arrow">›</span>
+                  </button>
+                ) : (
+                  <Link
+                    to={item.link || "#"}
+                    className="cat-drilldown-item"
+                    onClick={handleCloseFlyout}
+                  >
+                    <span className="cat-drilldown-name">{item.name}</span>
+                  </Link>
+                )}
+              </li>
             ))}
-          </div>
-          <div className="flyout-right">
-            {hoveredCategoryIndex !== null
-              ? renderRightPanel(categories[hoveredCategoryIndex])
-              : (
-                <div className="flyout-right-placeholder">
-                  <p>Hover over a department to view categories</p>
-                </div>
-              )}
-          </div>
+          </ul>
         </div>
       )}
     </section>

@@ -2,6 +2,9 @@ import React from "react";
 import FeaturedProducts from "./Components/FeaturedProducts/FeaturedProducts";
 import Categories from "./Components/Categories/Categories";
 import Promotions from "./Components/Promotions/Promotions";
+import DealsCarousel from "./Components/DealsCarousel/DealsCarousel";
+import ShopByTheme from "./Components/ShopByTheme/ShopByTheme";
+import BestSellersIn from "./Components/BestSellersIn/BestSellersIn";
 import CustomerReviews from "./Components/CustomerReviews/CustomerReviews";
 import Newsletter from "./Components/Newsletter/Newsletter";
 import TopSellingProducts from "./Components/TopSellingProducts/TopSellingProducts";
@@ -11,81 +14,88 @@ import CTA from "./Components/CTA/CTA";
 import Testimonials from "./Components/Testimonials/Testimonials";
 import SocialMediaFeed from "./Components/SocialMediaFeed/SocialMediaFeed";
 import Blog from "./Components/Blog/Blog";
+import Footer from "../Footer/Footer";
 
 const MiddleSection = () => {
   return (
-    <main>
-      {/* Featured Products Section */}
-      <section className="featured-products">
-        {/* <h2>Featured Products</h2> */}
-        <FeaturedProducts />
-      </section>
-
-      {/* Categories Section */}
-      <section className="categories">
-        {/* <h2>Shop by Category</h2> */}
-        <Categories />
-      </section>
-
-      {/* Promotions Section */}
+    <main className="middle-section-home">
+      {/* 1. Four-block promotional grid */}
       <section className="promotions">
-        {/* <h2>Special Offers</h2> */}
         <Promotions />
       </section>
 
-      {/* Top-Selling Products Section */}
-      <section className="top-selling">
-        {/* <h2>Top Selling Products</h2> */}
-        <TopSellingProducts />
+      {/* 2. Deals carousel – Up to 50% off */}
+      <section className="deals-carousel">
+        <DealsCarousel />
       </section>
 
-      {/* New Arrivals Section */}
+      {/* 3. Second four-block row – Shop by theme */}
+      <section className="shop-by-theme">
+        <ShopByTheme />
+      </section>
+
+      {/* 4. New Products – horizontal carousel */}
       <section className="new-arrivals">
-        {/* <h2>New Arrivals</h2> */}
         <NewArrivals />
       </section>
 
-      {/* Brands Section */}
+      {/* 5. Top Selling Products – horizontal carousel */}
+      <section className="top-selling">
+        <TopSellingProducts />
+      </section>
+
+      {/* 6. Best Sellers in Home & Kitchen */}
+      <section className="best-sellers-in">
+        <BestSellersIn />
+      </section>
+
+      {/* 7. Shop by Category */}
+      <section className="categories">
+        <Categories />
+      </section>
+
+      {/* 8. Featured Products */}
+      <section className="featured-products">
+        <FeaturedProducts />
+      </section>
+
+      {/* 9. Our Brands */}
       <section className="brands">
-        {/* <h2>Our Brands</h2> */}
         <Brands />
       </section>
 
-      {/* Blog/Articles Section */}
+      {/* 10. Blog */}
       <section className="blog">
-        {/* <h2>From Our Blog</h2> */}
         <Blog />
       </section>
 
-      {/* Customer Reviews Section */}
+      {/* 11. Customer Reviews */}
       <section className="customer-reviews">
-        {/* <h2>What Our Customers Say</h2> */}
         <CustomerReviews />
       </section>
 
-      {/* Testimonials Section */}
+      {/* 12. Testimonials */}
       <section className="testimonials">
-        {/* <h2>Testimonials</h2> */}
         <Testimonials />
       </section>
 
-      {/* CTA Section */}
+      {/* 13. CTA banner */}
       <section className="cta">
-        {/* <h2>Join Our Community</h2> */}
         <CTA />
       </section>
 
-      {/* Social Media Feed Section */}
+      {/* 14. Social Media */}
       <section className="social-media">
-        {/* <h2>Follow Us on Social Media</h2> */}
         <SocialMediaFeed />
       </section>
 
-      {/* Newsletter Subscription */}
+      {/* 15. Newsletter */}
       <section className="newsletter">
-        {/* <h2>Stay Updated</h2> */}
         <Newsletter />
       </section>
+
+      {/* 16. Footer */}
+      <Footer />
     </main>
   );
 };

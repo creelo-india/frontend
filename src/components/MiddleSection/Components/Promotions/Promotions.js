@@ -1,48 +1,47 @@
 import React from "react";
 import "./Promotions.scss";
 
+import { Link } from "react-router-dom";
+
 const Promotions = () => {
   const promotions = [
     {
       id: 1,
-      title: "50% Off on Bathroom Fixtures",
-      description:
-        "Upgrade your bathroom with stylish fixtures at half the price!",
-      imageUrl:
-        "https://via.placeholder.com/600x400?text=Bathroom+Fixtures+Sale",
-      linkUrl: "/promotions/bathroom-fixtures",
+      title: "Design your home in style",
+      description: "Bathroom & kitchen fixtures",
+      linkUrl: "/category/bathroom",
     },
     {
       id: 2,
-      title: "Free Shipping on Orders Over $100",
-      description: "Shop now and get free shipping on all orders over $100.",
-      imageUrl: "https://via.placeholder.com/600x400?text=Free+Shipping",
-      linkUrl: "/promotions/free-shipping",
+      title: "Deals on home essentials",
+      description: "Up to 50% off selected items",
+      linkUrl: "/product-search",
     },
     {
       id: 3,
-      title: "Kitchen Sale - Up to 40% Off",
-      description:
-        "Transform your kitchen with our exclusive sale on appliances and decor.",
-      imageUrl: "https://via.placeholder.com/600x400?text=Kitchen+Sale",
-      linkUrl: "/promotions/kitchen-sale",
+      title: "Free shipping",
+      description: "On orders over ₹2,500",
+      linkUrl: "/product-search",
+    },
+    {
+      id: 4,
+      title: "Shop & save",
+      description: "Kitchen and heating",
+      linkUrl: "/category/kitchen",
     },
   ];
 
   return (
-    <div className="promotions-section">
-      {promotions.map((promo) => (
-        <div key={promo.id} className="promotion-card">
-          <a href={promo.linkUrl}>
-            <img src={promo.imageUrl} alt={promo.title} />
-            <div className="promo-content">
-              <h3>{promo.title}</h3>
-              <p>{promo.description}</p>
-              <button>Shop Now</button>
-            </div>
-          </a>
-        </div>
-      ))}
+    <div className="promotions-section promotions-four-block">
+      <div className="promotions-four-block-inner">
+        {promotions.map((promo) => (
+          <Link key={promo.id} to={promo.linkUrl} className="promotion-block">
+            <h3 className="promotion-block-title">{promo.title}</h3>
+            <p className="promotion-block-desc">{promo.description}</p>
+            <span className="promotion-block-cta">Shop now</span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

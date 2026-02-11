@@ -2,37 +2,40 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axiosClient from "../../api/interceptorApi";
-import "./Login.scss";
+import { CONFIG } from "../../api/config";
+import "./Register.scss";
 import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const roleId = CONFIG.USER_ROLE_ID;
 
-  const initialValues = { email: "", password: "" };
+  const initialValues = { name: "", email: "", password: "" };
 
   const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email format").required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     setErrorMessage("");
+    if (!roleId) {
+      setErrorMessage("Registration is not configured. Please contact support.");
+      setSubmitting(false);
+      return;
+    }
     try {
-      const response = await axiosClient.post("/api/auth/login", {
+      await axiosClient.post("/api/auth/register", {
+        name: values.name,
         email: values.email,
         password: values.password,
+        roleId,
       });
-      const token = response.data?.access_token ?? response.data?.token;
-      if (token) {
-        localStorage.setItem("token", token);
-        window.dispatchEvent(new Event("storage"));
-        navigate("/");
-      } else {
-        setErrorMessage("Login succeeded but no token received.");
-      }
+      navigate("/login");
     } catch (error) {
-      const msg = error.response?.data?.message ?? error.response?.data?.error ?? "Login failed. Please try again.";
+      const msg = error.response?.data?.message ?? error.response?.data?.error ?? "Registration failed. Please try again.";
       setErrorMessage(msg);
     } finally {
       setSubmitting(false);
@@ -40,8 +43,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
+    <div className="register-container">
+      <h1>Register</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -49,16 +52,18 @@ const Login = () => {
       >
         {({ isSubmitting }) => (
           <Form>
+            <Field type="text" name="name" placeholder="Name" />
+            <ErrorMessage name="name" component="div" className="error" />
             <Field type="email" name="email" placeholder="Email" />
             <ErrorMessage name="email" component="div" className="error" />
             <Field type="password" name="password" placeholder="Password" />
             <ErrorMessage name="password" component="div" className="error" />
             <button type="submit" disabled={isSubmitting}>
-              Login
+              Register
             </button>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <p className="login-register-link">
-              Don&apos;t have an account? <Link to="/register">Register</Link>
+            <p className="register-login-link">
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </Form>
         )}
@@ -67,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

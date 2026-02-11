@@ -1,18 +1,17 @@
 @import '../../../../variables';
 
-.promotions-section {
+.shop-by-theme-section {
   padding: 20px 0;
+  background: $neutral-bg-color;
 }
 
-/* Amazon-style four-block row below hero */
-.promotions-four-block-inner {
+.shop-by-theme-inner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-
   @media (max-width: 992px) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -21,43 +20,41 @@
   }
 }
 
-.promotion-block {
+.shop-by-theme-card {
   background: $white-color;
-  padding: 20px;
+  padding: 24px 20px;
   border-radius: 6px;
   text-decoration: none;
   color: $text-color;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   transition: box-shadow 0.2s ease;
-
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     color: $text-color;
   }
 }
 
-.promotion-block-title {
+.shop-by-theme-title {
   font-size: 1rem;
   font-weight: 700;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-family: $font-raleway;
 }
 
-.promotion-block-desc {
+.shop-by-theme-desc {
   font-size: 0.9rem;
   color: #666;
   margin: 0 0 12px;
   flex: 1;
 }
 
-.promotion-block-cta {
+.shop-by-theme-cta {
   font-size: 0.9rem;
   color: $link-color;
   font-weight: 600;
-
-  .promotion-block:hover & {
+  .shop-by-theme-card:hover & {
     color: $link-hover-color;
   }
 }

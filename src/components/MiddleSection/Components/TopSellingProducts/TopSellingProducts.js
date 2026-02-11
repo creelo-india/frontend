@@ -91,22 +91,20 @@ const TopSellingProducts = () => {
       >
         {featuredProducts.map((product) => (
           <div key={product.id} className="top-selling-product-card">
-            {product.images && product.images[0] && product.images[0].image ? (
-                   <img
-                    src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, '')}`} 
-                    alt={product.name}
-                    className="product-image"
-                  />
-                ) : (
-                  <img
-                    src="/path/to/placeholder-image.jpg" 
-                    alt="No image available"
-                    className="product-image"
-                  />
-                )}
+            <div className="top-selling-image-wrap">
+              {product.images?.[0]?.image ? (
+                <img
+                  src={`${CONFIG.BASE_URL}${product.images[0].image.replace(/\/$/, "")}`}
+                  alt={product.name}
+                  className="product-image"
+                />
+              ) : (
+                <div className="top-selling-image-placeholder" aria-hidden>No image</div>
+              )}
+            </div>
             <h3 className="product-name">{product.name}</h3>
             <p className="product-price">{product.price}</p>
-            <button className="add-to-cart-btn">Add to Cart</button>
+            <button type="button" className="add-to-cart-btn">Buy Now</button>
           </div>
         ))}
       </Slider>

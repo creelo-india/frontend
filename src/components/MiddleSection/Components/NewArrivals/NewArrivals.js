@@ -1,129 +1,113 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Slider from "react-slick";
 import "./NewArrivals.scss";
 
 const NewArrivals = () => {
-  // Sample data for new arrivals with placeholder images
   const newArrivals = [
     {
       id: 1,
       name: "Contemporary Kitchen Faucet",
-      price: "$129.99",
+      price: "₹9,999",
       imageUrl:
         "https://via.placeholder.com/300x300.png?text=Contemporary+Kitchen+Faucet",
-      description: "A sleek faucet to enhance your kitchen's look.",
-      rating: 4.5,
-      reviews: 50,
+      category: "Kitchen",
     },
     {
       id: 2,
       name: "Luxury Bathroom Mirror",
-      price: "$199.99",
+      price: "₹14,999",
       imageUrl:
         "https://via.placeholder.com/300x300.png?text=Luxury+Bathroom+Mirror",
-      description: "An elegant mirror that adds depth and style.",
-      rating: 4.7,
-      reviews: 75,
+      category: "Bathroom",
     },
     {
       id: 3,
       name: "Elegant Bathtub",
-      price: "$799.99",
+      price: "₹59,999",
       imageUrl: "https://via.placeholder.com/300x300.png?text=Elegant+Bathtub",
-      description: "A stunning bathtub for your relaxation.",
-      rating: 4.8,
-      reviews: 100,
+      category: "Bathroom",
     },
     {
       id: 4,
       name: "Smart Shower Panel",
-      price: "$349.99",
+      price: "₹24,999",
       imageUrl:
         "https://via.placeholder.com/300x300.png?text=Smart+Shower+Panel",
-      description: "Upgrade your shower experience with smart controls.",
-      rating: 4.6,
-      reviews: 65,
+      category: "Bathroom",
+    },
+    {
+      id: 5,
+      name: "Radiator Heater",
+      price: "₹12,499",
+      imageUrl: "https://via.placeholder.com/300x300.png?text=Radiator+Heater",
+      category: "Heating",
     },
   ];
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [wishlist, setWishlist] = useState([]);
+  const [autoplay, setAutoplay] = useState(true);
 
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
-  };
+  const PrevArrow = ({ onClick }) => (
+    <div className="arrow left-arrow" onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && onClick?.()}>
+      &#10094;
+    </div>
+  );
+  const NextArrow = ({ onClick }) => (
+    <div className="arrow right-arrow" onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && onClick?.()}>
+      &#10095;
+    </div>
+  );
 
-  const closeModal = () => {
-    setSelectedProduct(null);
-  };
-
-  const handleWishlistToggle = (productId) => {
-    if (wishlist.includes(productId)) {
-      setWishlist(wishlist.filter((id) => id !== productId));
-    } else {
-      setWishlist([...wishlist, productId]);
-    }
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay,
+    autoplaySpeed: 4000,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
+    ],
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
   };
 
   return (
-    <div className="new-arrivals">
-      <h2>New Arrivals</h2>
-      <div className="products-grid">
-        {newArrivals.map((product) => (
-          <div
-            key={product.id}
-            className="product-card"
-            onClick={() => handleProductClick(product)}
-          >
-            <div className="image-container">
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="product-image"
-              />
-              <button
-                className={`wishlist-btn ${
-                  wishlist.includes(product.id) ? "active" : ""
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent card click event
-                  handleWishlistToggle(product.id);
-                }}
-              >
-                {wishlist.includes(product.id) ? "❤️" : "🤍"} {/* Heart icon */}
-              </button>
+    <div className="new-arrivals new-arrivals-carousel">
+      <h2 className="section-heading">New Products</h2>
+      <div
+        className="new-arrivals-slider-wrap"
+        onMouseEnter={() => setAutoplay(false)}
+        onMouseLeave={() => setAutoplay(true)}
+      >
+        <Slider {...settings}>
+          {newArrivals.map((product) => (
+            <div key={product.id} className="new-arrival-card">
+              <Link to="/product-search" className="new-arrival-card-link">
+                <div className="new-arrival-image-wrap">
+                  {product.imageUrl ? (
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div className="new-arrival-image-placeholder">No image</div>
+                  )}
+                </div>
+                <h3 className="product-name">{product.name}</h3>
+                {product.category && (
+                  <p className="product-category">{product.category}</p>
+                )}
+                <p className="product-price">{product.price}</p>
+              </Link>
             </div>
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">{product.price}</p>
-            <p className="product-rating">
-              {Array.from({ length: 5 }, (_, index) => (
-                <span
-                  key={index}
-                  className={index < product.rating ? "filled" : ""}
-                >
-                  ★
-                </span>
-              ))}
-              <span> ({product.reviews} reviews)</span>
-            </p>
-            <button className="view-details-btn">View Details</button>
-          </div>
-        ))}
+          ))}
+        </Slider>
       </div>
-
-      {selectedProduct && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{selectedProduct.name}</h3>
-            <img src={selectedProduct.imageUrl} alt={selectedProduct.name} />
-            <p>{selectedProduct.description}</p>
-            <p className="modal-price">{selectedProduct.price}</p>
-            <button className="add-to-cart">Add to Cart</button>
-            <button className="close-modal" onClick={closeModal}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

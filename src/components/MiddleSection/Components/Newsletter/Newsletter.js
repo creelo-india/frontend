@@ -25,7 +25,7 @@ const Newsletter = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
+              placeholder="Enter your email..."
               required
             />
             <button type="submit">Subscribe</button>

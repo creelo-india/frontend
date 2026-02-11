@@ -8,6 +8,21 @@ const getBaseUrl = () => {
   return url.endsWith("/") ? url : `${url}/`;
 };
 
+const getUserRoleId = () =>
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_USER_ROLE_ID) ||
+  process.env.REACT_APP_USER_ROLE_ID ||
+  "";
+
+// Backend report: vendor-listings API is pending. Set to true when backend implements GET /api/catalog/vendor-listings.
+const isVendorListingsEnabled = () => {
+  const v =
+    (typeof import.meta !== "undefined" && import.meta.env?.VITE_VENDOR_LISTINGS_ENABLED) ||
+    process.env.REACT_APP_VENDOR_LISTINGS_ENABLED;
+  return v === "true" || v === "1";
+};
+
 export const CONFIG = {
   BASE_URL: getBaseUrl(),
+  USER_ROLE_ID: getUserRoleId(),
+  VENDOR_LISTINGS_ENABLED: isVendorListingsEnabled(),
 };
